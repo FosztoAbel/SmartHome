@@ -59,7 +59,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
     private fun setupRecyclerView() {
         val demoData = mutableListOf(
             RoomDevice(1,1,"light",0),
-            RoomDevice(1,2,"ligthLED",0),
+            RoomDevice(3,2,"climate",0),
             RoomDevice(2,3,"add",0)
             )
         roomDevicesRecyclerViewAdapter = RoomDevicesRecyclerViewAdapter()
@@ -88,6 +88,10 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         if(roomDevice.viewType == 2){
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_addNewDeviceFragment)
         }
+        if(roomDevice.viewType == 3){
+            findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_climateSettingsFragment)
+        }
+
 
     }
 

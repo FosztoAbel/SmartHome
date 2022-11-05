@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.smarthome.databinding.RowAddBinding
-import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceBinding
+import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceClimateBinding
+import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceLedBinding
 import hu.bme.aut.android.smarthome.model.RoomDevice
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -17,6 +18,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     companion object {
         const val VIEW_TYPE_ONE = 1
         const val VIEW_TYPE_TWO = 2
+        const val VIEW_TYPE_THREE = 3  // for the climate changes
     }
 
     var itemClickListener: RoomDevicesItemClickListener? = null
@@ -24,8 +26,12 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         if (viewType == VIEW_TYPE_ONE) {
-            return ViewHolderRoomDevice(
-                RowRoomDeviceBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            return ViewHolderRoomDeviceLed(
+                RowRoomDeviceLedBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        }
+        if (viewType == VIEW_TYPE_THREE) {
+            return ViewHolderRoomDeviceClimate(
+                RowRoomDeviceClimateBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
         return ViewHolderRoomDeviceAdd(
             RowAddBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -33,9 +39,13 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (roomDeviceList[position].viewType === VIEW_TYPE_ONE) {
-            (holder as ViewHolderRoomDevice).bind(position)
-        } else {
+            (holder as ViewHolderRoomDeviceLed).bind(position)
+        }
+        else if(roomDeviceList[position].viewType === VIEW_TYPE_TWO) {
             (holder as ViewHolderRoomDeviceAdd).bind(position)
+        }
+        else {
+            (holder as ViewHolderRoomDeviceClimate).bind(position)
         }
     }
 
@@ -62,7 +72,21 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         return roomDeviceList[position].viewType
     }
 
-    inner class ViewHolderRoomDevice(val binding: RowRoomDeviceBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolderRoomDeviceLed(val binding: RowRoomDeviceLedBinding) : RecyclerView.ViewHolder(binding.root) {
+        var roomDevice: RoomDevice? = null
+
+        @SuppressLint("SetTextI18n")
+        fun bind(position: Int) {
+            val roomDevice = roomDeviceList[position]
+            binding.deviceButton.setOnClickListener {
+                roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice)
+                }
+            }
+        }
+    }
+
+    //for future updates
+    inner class ViewHolderRoomDeviceClimate(val binding: RowRoomDeviceClimateBinding) : RecyclerView.ViewHolder(binding.root) {
         var roomDevice: RoomDevice? = null
 
         @SuppressLint("SetTextI18n")

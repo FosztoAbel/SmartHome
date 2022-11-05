@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_roomDevicesScreenFragment_to_ledLightSettingsFragment"
             app:destination="@id/ledLightSettingsFragment" />
+        <action
+            android:id="@+id/action_roomDevicesScreenFragment_to_climateSettingsFragment"
+            app:destination="@id/climateSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewDeviceFragment"
@@ -83,6 +86,14 @@
         android:label="LedLightSettingsFragment" >
         <action
             android:id="@+id/action_ledLightSettingsFragment_to_roomDevicesScreenFragment"
+            app:destination="@id/roomDevicesScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/climateSettingsFragment"
+        android:name="hu.bme.aut.android.smarthome.homeFragments.ClimateSettingsFragment"
+        android:label="ClimateSettingsFragment" >
+        <action
+            android:id="@+id/action_climateSettingsFragment_to_roomDevicesScreenFragment"
             app:destination="@id/roomDevicesScreenFragment" />
     </fragment>
 </navigation>

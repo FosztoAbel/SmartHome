@@ -63,5 +63,6 @@
     <string name="led_strip">Led Strip</string>
     <string name="air_conditioner">Air conditioner</string>
     <string name="led_light_settings">Led light settings</string>
+    <string name="climate_settings">Climate settings</string>
 
 </resources>
