@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.RoomDevicesRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentRoomDevicesScreenBinding
+import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 import hu.bme.aut.android.smarthome.model.RoomDevice
 
 private const val ARG_PARAM1 = "param1"
@@ -23,6 +24,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
 
     private lateinit var binding: FragmentRoomDevicesScreenBinding
     private lateinit var roomDevicesRecyclerViewAdapter: RoomDevicesRecyclerViewAdapter
+    private lateinit var dialog: ChangeNameDialog
     private var param1: String? = null
     private var param2: String? = null
     val args : RoomDevicesScreenFragmentArgs by navArgs()
@@ -33,6 +35,14 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        dialog = ChangeNameDialog.newInstance(
+            titleResId = R.string.change_name,
+            description = getString(R.string.new_name),
+            inputResId = R.drawable.ic_home,   //not sure why ? later delete
+            positiveButtonResId = R.string.change,
+            negativeButtonResId = R.string.cancel
+        )
     }
 
     override fun onCreateView(
@@ -50,6 +60,10 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         //binding.roomNameDevicesTV.text = args.roomNameString
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_swipeMenuFragment)
+        }
+
+        binding.editImage.setOnClickListener {
+            dialog.show(childFragmentManager,ChangeNameDialog.TAG)
         }
 
         setupRecyclerView()

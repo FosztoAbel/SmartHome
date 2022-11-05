@@ -64,5 +64,9 @@
     <string name="air_conditioner">Air conditioner</string>
     <string name="led_light_settings">Led light settings</string>
     <string name="climate_settings">Climate settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="change">Change</string>
+    <string name="new_name">New Name</string>
+    <string name="change_name">Change name</string>
 
 </resources>

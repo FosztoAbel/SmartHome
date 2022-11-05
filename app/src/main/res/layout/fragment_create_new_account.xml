@@ -144,7 +144,7 @@
         android:id="@+id/createNewAccountButton"
         android:background="@drawable/custom_register_button"
         android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginTop="108dp"
         android:text="@string/create_new_account"
         android:fontFamily="@font/dosis_medium"

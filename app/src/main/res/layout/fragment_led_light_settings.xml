@@ -26,6 +26,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
 
+    <ImageView
+        android:id="@+id/editImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/lightSettingsTV"
+        app:layout_constraintStart_toEndOf="@+id/lightSettingsTV"
+        app:layout_constraintTop_toTopOf="@+id/lightSettingsTV" />
+
+    <com.panshen.gridcolorpicker.GridColorPicker
+        android:id="@+id/colorPicker"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:gcp_alphaViewLabelColor="@color/black"
+        app:gcp_alphaViewLabelText="Opacity"
+        app:gcp_cardColor="#FFFFFF"
+        app:gcp_colorScheme="@array/colorsForPicker"
+        app:gcp_drawCard="true"
+        app:gcp_row="10"
+        app:gcp_selectorColor="#FFFFFF"
+        app:gcp_showAlphaView="true"
+        app:gcp_showAlphaViewLabel="true"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSaveSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lightSettingsTV"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSaveSettings"
         android:layout_width="250dp"

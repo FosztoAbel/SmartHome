@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentClimateSettingsBinding
+import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class ClimateSettingsFragment : Fragment() {
     private lateinit var binding : FragmentClimateSettingsBinding
+    private lateinit var dialog: ChangeNameDialog
     private var param1: String? = null
     private var param2: String? = null
 
@@ -23,6 +25,13 @@ class ClimateSettingsFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        dialog = ChangeNameDialog.newInstance(
+            titleResId = R.string.change_name,
+            description = getString(R.string.new_name),
+            inputResId = R.drawable.ic_home,   //not sure why ? later delete
+            positiveButtonResId = R.string.change,
+            negativeButtonResId = R.string.cancel
+        )
     }
 
     override fun onCreateView(
@@ -41,6 +50,9 @@ class ClimateSettingsFragment : Fragment() {
         }
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_climateSettingsFragment_to_roomDevicesScreenFragment)
+        }
+        binding.editImage.setOnClickListener {
+            dialog.show(childFragmentManager,ChangeNameDialog.TAG)
         }
 
     }
