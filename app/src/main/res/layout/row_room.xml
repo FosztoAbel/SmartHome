@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/roomHomeButton"
+        android:layout_width="360dp"
+        android:layout_height="100dp"
+        android:background="@drawable/custom_room_button"
+        android:fontFamily="@font/dosis_medium"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/roomNameHomeTV"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:elevation="100dp"
+        android:text="@string/room_name"
+        android:fontFamily="@font/dosis_medium"
+        android:layout_marginTop="17dp"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/roomHomeButton"
+        app:layout_constraintStart_toStartOf="@+id/roomHomeButton"
+        app:layout_constraintTop_toTopOf="@+id/roomHomeButton" />
+
+    <TextView
+        android:id="@+id/deviceNumberHomeTV"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:text="@string/device_number"
+        android:elevation="100dp"
+        android:fontFamily="@font/dosis_medium"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/roomHomeButton"
+        app:layout_constraintStart_toStartOf="@+id/roomHomeButton"
+        app:layout_constraintTop_toBottomOf="@+id/roomNameHomeTV" />
+
+    <ImageView
+        android:id="@+id/roomImage"
+        android:layout_width="345dp"
+        android:layout_height="85dp"
+        android:elevation="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/roomHomeButton"
+        app:layout_constraintEnd_toEndOf="@+id/roomHomeButton"
+        app:layout_constraintStart_toStartOf="@+id/roomHomeButton"
+        app:layout_constraintTop_toTopOf="@+id/roomHomeButton"
+        app:srcCompat="@drawable/custom_room_image" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+
+
+    <ImageView
+        android:id="@+id/arrowImage"
+        android:layout_width="95dp"
+        android:layout_height="75dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/newPresetTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/dosis_bold"
+        android:text="@string/create_new_preset"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSavePreset"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/custom_register_button"
+        android:fontFamily="@font/dosis_medium"
+        android:text="@string/save_preset"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/presetNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_input_field"
+        android:ems="16"
+        android:fontFamily="@font/dosis_medium"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/presetNameTV" />
+
+    <TextView
+        android:id="@+id/roomNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/room_name"
+        android:textSize="15sp"
+        android:layout_marginStart="35dp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/presetNameInput" />
+
+    <TextView
+        android:id="@+id/presetNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/name"
+        android:textSize="15sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPresetTV" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuidelineLoginPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="87dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_input_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roomNameTV" />
+
+    <TextView
+        android:id="@+id/datePickerTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/pick_days"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <TextView
+        android:id="@+id/pickTimeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/pick_time"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daypicker" />
+
+    <TextView
+        android:id="@+id/actionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_regular"
+        android:layout_marginStart="10dp"
+        android:text="@string/actions"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
+
+    <com.example.ticker.core.ui.Ticker
+        android:id="@+id/time_picker"
+        android:layout_width="230dp"
+        android:layout_height="195dp"
+        app:hoursFormat="hours24"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickTimeTV"
+        app:minutesInterval="1"
+        app:shouldAmSelected="false" />
+
+    <include
+        android:id="@+id/daypicker"
+        layout="@layout/day_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerTV" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
