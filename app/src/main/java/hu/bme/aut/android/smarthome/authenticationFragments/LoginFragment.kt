@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.smarthome.MainMenuActivity
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentLoginBinding
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : AbstractLoginAndRegister() {
+
     private lateinit var binding : FragmentLoginBinding
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +24,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        firebaseAuth = FirebaseAuth.getInstance()
         return binding.root;
     }
 
@@ -28,8 +32,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginButton.setOnClickListener {
-            val intent = Intent(activity, MainMenuActivity::class.java)
-            startActivity(intent)
+            loginClick()
         }
 
         binding.registerButton.setOnClickListener {
@@ -38,5 +41,41 @@ class LoginFragment : Fragment() {
         binding.forgotPasswordTV.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
+
+    }
+
+    private fun validateForm(): Boolean {
+        if (binding.emailInput.text.isEmpty()) {
+            return false
+        }
+        if (binding.passwordInput.text.isEmpty()) {
+            return false
+        }
+        return true
+    }
+
+
+    private fun loginClick() {
+        if (!validateForm()) {
+            Snackbar.make(binding.root,"Empty fields!",Snackbar.LENGTH_LONG).show()
+            return
+        }
+
+        showProgressDialog()
+
+        firebaseAuth
+            .signInWithEmailAndPassword(binding.emailInput.text.toString(), binding.passwordInput.text.toString())
+            .addOnSuccessListener {
+                hideProgressDialog()
+
+                val intent = Intent(activity, MainMenuActivity::class.java)
+                startActivity(intent)
+
+            }
+            .addOnFailureListener { exception ->
+                hideProgressDialog()
+
+                Snackbar.make(binding.root,exception.message.toString(),Snackbar.LENGTH_LONG).show()
+            }
     }
 }

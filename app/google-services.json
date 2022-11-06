@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "931890783817",
+    "project_id": "smarthome-uptoapp",
+    "storage_bucket": "smarthome-uptoapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931890783817:android:39a221b4e35fe1009d4198",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.android.smarthome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931890783817-ebjjh8mdtou5sf2vqiq3pevoejqe6lgq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOVb5fvfhr-tuFYOhsBdYiN48w8SyWlqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931890783817-ebjjh8mdtou5sf2vqiq3pevoejqe6lgq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
