@@ -27,7 +27,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
     private lateinit var dialog: ChangeNameDialog
     private var param1: String? = null
     private var param2: String? = null
-    val args : RoomDevicesScreenFragmentArgs by navArgs()
+    private val args: RoomDevicesScreenFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.roomNameDevicesTV.text = args.roomNameString
+        binding.roomNameDevicesTV.text = args.roomNameString
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_swipeMenuFragment)
         }
@@ -113,3 +113,4 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         TODO("Not yet implemented")
     }
 }
+

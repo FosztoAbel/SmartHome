@@ -45,9 +45,4 @@ abstract class AbstractLoginAndRegister : Fragment() {
         }
         progressDialog = null
     }
-
-    protected fun toast(message: String?) {
-        Toast.makeText(activity,message,Toast.LENGTH_LONG).show()
-    }
-
 }

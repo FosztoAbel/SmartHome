@@ -1,5 +1,6 @@
 package hu.bme.aut.android.smarthome.homeFragments
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +9,9 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.RoomRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentHomeMenuBinding
@@ -47,6 +50,7 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
         return binding.root;
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,6 +64,11 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
         binding.profileButton.setOnClickListener{
             findNavController().navigate(R.id.action_swipeMenuFragment_to_profileFragment)
         }
+
+        val user = FirebaseAuth.getInstance().currentUser
+        var fullNameOfUser = user?.displayName.toString().split(" ")
+
+        binding.welcomeTV.text = "Welcome, "+ fullNameOfUser[0] + "!"
 
         setupRecyclerView()
     }
@@ -94,8 +103,8 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
 
     override fun onItemClick(room: Room) {
         if(room.viewType == 1) {
-           //val action  = SwipeMenuFragmentDirections.actionSwipeMenuFragmentToRoomDevicesScreenFragment()
-            findNavController().navigate(R.id.action_swipeMenuFragment_to_roomDevicesScreenFragment)
+            val action  = SwipeMenuFragmentDirections.actionSwipeMenuFragmentToRoomDevicesScreenFragment(room.name)
+            findNavController().navigate(action)
         }
         if(room.viewType == 2){
            findNavController().navigate(R.id.action_swipeMenuFragment_to_createNewRoomFragment)

@@ -1,17 +1,15 @@
 package hu.bme.aut.android.smarthome.authenticationFragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.*
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentCreateNewAccountBinding
-import hu.bme.aut.android.smarthome.databinding.FragmentLoginBinding
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -54,12 +52,10 @@ class CreateNewaccountFragment : AbstractLoginAndRegister(){
     }
 
     private fun validateForm(): Boolean {
-        if (binding.firstNameInput.text.isEmpty()) {
+        if (binding.fullNameInput.text.isEmpty()) {
             return false
         }
-        if (binding.lastNameInput.text.isEmpty()) {
-            return false
-        }
+
         if (binding.emailRegisterInput.text.isEmpty()) {
             return false
         }
@@ -83,10 +79,16 @@ class CreateNewaccountFragment : AbstractLoginAndRegister(){
                 hideProgressDialog()
 
                 val firebaseUser = result.user
+
                 val profileChangeRequest = UserProfileChangeRequest.Builder()
-                    .setDisplayName(firebaseUser?.email?.substringBefore('@'))
+                    .setDisplayName(binding.fullNameInput.text.toString())
                     .build()
                 firebaseUser?.updateProfile(profileChangeRequest)
+//                val phoneChange = PhoneAuthCredential
+//                    .setPhoneNumber(binding.phoneNumberRegisterInput.text.toString())
+//                    .build()
+//                firebaseUser?.updatePhoneNumber(phoneChange)
+
 
                 Snackbar.make(binding.root,"Registration successful!",Snackbar.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_createNewaccountFragment_to_loginFragment)

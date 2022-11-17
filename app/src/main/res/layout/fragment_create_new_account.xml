@@ -31,49 +31,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:text="@string/first_name"
+        android:text="@string/full_name"
         android:fontFamily="@font/dosis_regular"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
 
-    <TextView
-        android:id="@+id/lastNameTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/dosis_regular"
-        android:text="@string/last_name"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
-        app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
 
     <EditText
-        android:id="@+id/firstNameInput"
+        android:id="@+id/fullNameInput"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="27dp"
-
         android:background="@drawable/custom_input_field"
-        android:ems="7"
+        android:ems="16"
         android:fontFamily="@font/dosis_medium"
         android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstNameTV" />
 
-    <EditText
-        android:id="@+id/lastNameInput"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
-        android:background="@drawable/custom_input_field"
-        android:ems="7"
-        android:fontFamily="@font/dosis_medium"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/firstNameInput"
-        app:layout_constraintTop_toBottomOf="@+id/lastNameTV" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuideline"
@@ -93,14 +71,14 @@
         android:id="@+id/emailRegisterTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="23dp"
         android:fontFamily="@font/dosis_regular"
         android:text="@string/email_register"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/fullNameInput" />
 
     <EditText
         android:id="@+id/emailRegisterInput"
@@ -119,11 +97,10 @@
         android:id="@+id/passwordRegisterTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
+        android:layout_marginStart="28dp"
         android:fontFamily="@font/dosis_regular"
         android:text="@string/password"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailRegisterInput" />
@@ -139,6 +116,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordRegisterTV" />
+
+    <TextView
+        android:id="@+id/phoneNumberRegisterTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/phone_number"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegisterInput" />
+
+    <EditText
+        android:id="@+id/phoneNumberRegisterInput"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_input_field"
+        android:ems="16"
+        android:fontFamily="@font/dosis_medium"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberRegisterTV"
+        tools:ignore="TextFields" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/createNewAccountButton"

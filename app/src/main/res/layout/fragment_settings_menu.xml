@@ -33,18 +33,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="87dp" />
 
-    <TextView
-        android:id="@+id/timeZoneTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/dosis_regular"
-        android:text="@string/time_zone"
-        android:textSize="15sp"
-        android:layout_marginStart="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineSettingsPage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"

@@ -87,6 +87,11 @@
         <action
             android:id="@+id/action_ledLightSettingsFragment_to_roomDevicesScreenFragment"
             app:destination="@id/roomDevicesScreenFragment" />
+        <argument
+            android:name="roomNameString"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/climateSettingsFragment"

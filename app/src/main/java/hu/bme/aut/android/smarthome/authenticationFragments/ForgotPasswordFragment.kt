@@ -1,11 +1,16 @@
 package hu.bme.aut.android.smarthome.authenticationFragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentForgotPasswordBinding
 
@@ -14,11 +19,6 @@ import hu.bme.aut.android.smarthome.databinding.FragmentForgotPasswordBinding
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ForgotPasswordFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ForgotPasswordFragment : Fragment() {
 
 private lateinit var binding: FragmentForgotPasswordBinding
@@ -48,21 +48,27 @@ private lateinit var binding: FragmentForgotPasswordBinding
             findNavController().navigate(R.id.action_forgotPasswordFragment_to_loginFragment)
         }
         binding.buttonSendCode.setOnClickListener {
-            findNavController().navigate(R.id.action_forgotPasswordFragment_to_resetPasswordFragment)
+            if(binding.emailForgotInput.text.isEmpty()){
+                Snackbar.make(binding.root, "Enter a valid e-mail adress!", Snackbar.LENGTH_LONG).show()
+            }
+            else {
+                var emailAddress = binding.emailForgotInput.text.toString()
+
+                Firebase.auth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "Email sent.")
+                            findNavController().navigate(R.id.action_forgotPasswordFragment_to_loginFragment)
+                        } else {
+                            Snackbar.make(binding.root, "Enter a valid e-mail adress!", Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+            }
         }
 
 
     }
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ForgotPasswordFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ForgotPasswordFragment().apply {
