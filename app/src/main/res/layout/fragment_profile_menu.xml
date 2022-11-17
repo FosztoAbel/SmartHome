@@ -88,20 +88,6 @@
         app:layout_constraintTop_toBottomOf="@+id/phoneNumberTV"
         tools:ignore="TextFields" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonSaveChanges"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:background="@drawable/custom_register_button"
-        android:fontFamily="@font/dosis_medium"
-        android:text="@string/save_changes"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allowNotifications" />
-
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="163dp"
@@ -146,6 +132,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumberInput" />
 
+    <EditText
+        android:id="@+id/changePasswordInput"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_input_field"
+        android:ems="16"
+        android:fontFamily="@font/dosis_medium"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/changePasswordTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextFields" />
+
+    <ImageView
+        android:id="@+id/passwordProfileToggleVisibility"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="@+id/changePasswordInput"
+        app:layout_constraintEnd_toEndOf="@+id/changePasswordInput"
+        app:layout_constraintTop_toTopOf="@+id/changePasswordInput" />
+
     <TextView
         android:id="@+id/allowNotifications"
         android:layout_width="wrap_content"
@@ -170,29 +179,18 @@
         app:layout_constraintTop_toBottomOf="@+id/changePasswordInput"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <EditText
-        android:id="@+id/changePasswordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/custom_input_field"
-        android:ems="16"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSaveChanges"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:background="@drawable/custom_register_button"
         android:fontFamily="@font/dosis_medium"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/changePasswordTV"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/save_changes"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="TextFields" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allowNotifications" />
 
-
-    <!--
-    <ImageView
-        android:id="@+id/passwordToggleVisibility"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_visibility"
-        app:layout_constraintBottom_toBottomOf="@+id/changePasswordInput"
-        app:layout_constraintEnd_toEndOf="@+id/changePasswordInput"
-        app:layout_constraintTop_toTopOf="@+id/changePasswordInput" />
-    -->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package hu.bme.aut.android.smarthome.authenticationFragments
 
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,8 +43,23 @@ class CreateNewaccountFragment : AbstractLoginAndRegister(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var toggleVisibility = false
+
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_createNewaccountFragment_to_loginFragment)
+        }
+
+        binding.passwordCreateAccountToggleVisibility.setOnClickListener {
+            if(!toggleVisibility) {
+                binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
+                binding.passwordRegisterInput.setTransformationMethod(null)
+                toggleVisibility = true
+            }
+            else {
+                binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility)
+                binding.passwordRegisterInput.setTransformationMethod(PasswordTransformationMethod())
+                toggleVisibility = false
+            }
         }
 
         binding.createNewAccountButton.setOnClickListener{

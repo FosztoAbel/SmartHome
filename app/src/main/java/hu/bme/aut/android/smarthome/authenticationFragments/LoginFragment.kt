@@ -2,6 +2,7 @@ package hu.bme.aut.android.smarthome.authenticationFragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,10 +32,24 @@ class LoginFragment : AbstractLoginAndRegister() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var toggleVisibility = false
+
+        binding.passwordLoginToggleVisibility.setOnClickListener {
+            if(!toggleVisibility) {
+                binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
+                binding.passwordInput.setTransformationMethod(null)
+                toggleVisibility = true
+            }
+            else {
+                binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility)
+                binding.passwordInput.setTransformationMethod(PasswordTransformationMethod())
+                toggleVisibility = false
+            }
+        }
+
         binding.loginButton.setOnClickListener {
             loginClick()
         }
-
         binding.registerButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_createNewaccountFragment)
         }

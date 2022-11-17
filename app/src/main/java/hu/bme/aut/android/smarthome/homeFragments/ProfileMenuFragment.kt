@@ -2,14 +2,15 @@ package hu.bme.aut.android.smarthome.homeFragments
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.text.InputType
+import android.text.method.PasswordTransformationMethod
+import android.text.method.TransformationMethod
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -17,9 +18,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.LoginActivity
-import hu.bme.aut.android.smarthome.MainMenuActivity
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentProfileMenuBinding
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -55,7 +56,7 @@ class ProfileFragment : Fragment() {
         val fullNameOfUser = user?.displayName.toString()
         val emailOfUser = user?.email.toString()
         val phoneNumberOfUser = user?.phoneNumber.toString()
-        var toggleVisibility = true
+        var toggleVisibility = false
 
         binding.arrowImage.setOnClickListener{
             findNavController().navigate(R.id.action_profileFragment_to_swipeMenuFragment)
@@ -71,20 +72,18 @@ class ProfileFragment : Fragment() {
 
         binding.emailProfileInput.hint = emailOfUser
 
-//        binding.passwordToggleVisibility.setOnClickListener {
-//            if(toggleVisibility) {
-//                binding.passwordToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-//                binding.changePasswordInput.setInputType(InputType.TYPE_CLASS_TEXT)
-//                binding.changePasswordInput.setEms(17)
-//                toggleVisibility = false
-//            }
-//            else {
-//                binding.passwordToggleVisibility.setImageResource(R.drawable.ic_visibility)
-//                binding.changePasswordInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
-//                binding.changePasswordInput.setEms(17)
-//                toggleVisibility = true
-//            }
-//        }
+        binding.passwordProfileToggleVisibility.setOnClickListener {
+            if(!toggleVisibility) {
+                binding.passwordProfileToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
+                binding.changePasswordInput.setTransformationMethod(null)
+                toggleVisibility = true
+            }
+            else {
+                binding.passwordProfileToggleVisibility.setImageResource(R.drawable.ic_visibility)
+                binding.changePasswordInput.setTransformationMethod(PasswordTransformationMethod())
+                toggleVisibility = false
+            }
+        }
 
         binding.buttonSaveChanges.setOnClickListener{
 
