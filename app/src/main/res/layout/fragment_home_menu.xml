@@ -45,6 +45,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentDate" />
 
+    <TextView
+        android:id="@+id/currentHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/current_home_smeklak"
+        android:textSize="22sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTV" />
+
     <ImageButton
         android:id="@+id/profileButton"
         android:layout_width="38dp"

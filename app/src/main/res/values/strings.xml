@@ -77,5 +77,6 @@
     <string name="home_name">Home name</string>
     <string name="save_home">Save home</string>
     <string name="join_existing_home">Join existing home</string>
+    <string name="current_home_smeklak">Current home: SmekLak</string>
 
 </resources>

@@ -77,6 +77,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinHomePasswordTV" />
 
+    <ImageView
+        android:id="@+id/passwordJoinHomeToggleVisibility"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="@+id/joinHomePasswordInput"
+        app:layout_constraintEnd_toEndOf="@+id/joinHomePasswordInput"
+        app:layout_constraintTop_toTopOf="@+id/joinHomePasswordInput" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuidelineLoginPage"
         android:layout_width="wrap_content"

@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/homeNameInput" />
 
     <EditText
-        android:id="@+id/homePasswordInput"
+        android:id="@+id/creatHomePasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/custom_input_field"
@@ -86,6 +86,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homePasswordTV" />
+
+    <ImageView
+        android:id="@+id/passwordCreateHomeToggleVisibility"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="@+id/creatHomePasswordInput"
+        app:layout_constraintEnd_toEndOf="@+id/creatHomePasswordInput"
+        app:layout_constraintTop_toTopOf="@+id/creatHomePasswordInput" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuidelineLoginPage"

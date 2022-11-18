@@ -9,13 +9,19 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.RoomRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentHomeMenuBinding
+import hu.bme.aut.android.smarthome.model.Home
 import hu.bme.aut.android.smarthome.model.Room
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -29,6 +35,7 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
 
     private lateinit var binding : FragmentHomeMenuBinding
     private lateinit var roomRecyclerViewAdapter: RoomRecyclerViewAdapter
+    val firestore = Firebase.firestore
     private var param1: String? = null
     private var param2: String? = null
 
@@ -47,7 +54,7 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeMenuBinding.inflate(inflater, container, false)
-        return binding.root;
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
@@ -66,12 +73,34 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
         }
 
         val user = FirebaseAuth.getInstance().currentUser
-        var fullNameOfUser = user?.displayName.toString().split(" ")
+        val fullNameOfUser = user?.displayName.toString().split(" ")
 
-        binding.welcomeTV.text = "Welcome, "+ fullNameOfUser[0] + "!"
+        binding.welcomeTV.text = "Welcome, " + fullNameOfUser[0] + "!"
 
+
+        var correctName : String =""
+            firestore.collection("homes")
+                .get()
+                .addOnSuccessListener { result ->
+                    for(document in result){
+                        val currDoc = document.toObject<Home>()
+                        if(currDoc.joinedUsers?.get(0) == user?.uid) {
+                            correctName = currDoc.name
+                            val docRef = firestore.collection("homes").document(correctName)
+                            docRef.get().addOnSuccessListener { documentSanpshot ->
+                                val currentHome = documentSanpshot.toObject<Home>()
+                                binding.currentHome.text = "Current home: " + currentHome!!.name
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener{
+
+                }
         setupRecyclerView()
     }
+
+
 
     private fun setupRecyclerView() {
         //TODO: get items from firebase firestore
