@@ -14,7 +14,7 @@ import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.RoomDevicesRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentRoomDevicesScreenBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
-import hu.bme.aut.android.smarthome.model.RoomDevice
+import hu.bme.aut.android.smarthome.model.Device
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -72,9 +72,9 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
 
     private fun setupRecyclerView() {
         val demoData = mutableListOf(
-            RoomDevice(1,1,"light",0),
-            RoomDevice(3,2,"climate",0),
-            RoomDevice(2,3,"add",0)
+            Device(1,1,"light",0),
+            Device(3,2,"climate",0),
+            Device(2,3,"add",0)
             )
         roomDevicesRecyclerViewAdapter = RoomDevicesRecyclerViewAdapter()
         roomDevicesRecyclerViewAdapter.itemClickListener = this
@@ -95,7 +95,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
             }
     }
 
-    override fun onItemClick(roomDevice: RoomDevice) {
+    override fun onItemClick(roomDevice: Device) {
         if(roomDevice.viewType == 1) {
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_ledLightSettingsFragment)
         }

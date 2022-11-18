@@ -1,28 +1,24 @@
 package hu.bme.aut.android.smarthome.homeFragments
 
 import android.os.Bundle
-import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import hu.bme.aut.android.smarthome.R
-import hu.bme.aut.android.smarthome.databinding.FragmentRoomDevicesScreenBinding
+import hu.bme.aut.android.smarthome.databinding.FragmentCreateHomeBinding
 import hu.bme.aut.android.smarthome.databinding.FragmentSettingsMenuBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+class CreateHomeFragment : Fragment() {
 
-class SettingsMenuFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var binding: FragmentSettingsMenuBinding
+    private lateinit var binding: FragmentCreateHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,28 +32,25 @@ class SettingsMenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSettingsMenuBinding.inflate(inflater, container, false)
+        binding = FragmentCreateHomeBinding.inflate(inflater, container, false)
         return binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.settingsNotificationsBackground.setOnClickListener {
+        binding.arrowImage.setOnClickListener {
+            findNavController().navigate(R.id.action_createHomeFragment_to_swipeMenuFragment)
         }
-        binding.settingsCreateHomeBackground.setOnClickListener {
-            findNavController().navigate(R.id.action_swipeMenuFragment_to_createHomeFragment)
+        binding.buttonCreateNewHome.setOnClickListener {
+            findNavController().navigate(R.id.action_createHomeFragment_to_swipeMenuFragment)
         }
-        binding.settingsJoinHomeBackground.setOnClickListener {
-            findNavController().navigate(R.id.action_swipeMenuFragment_to_joinHomeFragment)
-        }
-
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SettingsMenuFragment().apply {
+            CreateHomeFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

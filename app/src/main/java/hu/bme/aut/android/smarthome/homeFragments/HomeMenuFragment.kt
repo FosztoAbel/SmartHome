@@ -74,11 +74,13 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
     }
 
     private fun setupRecyclerView() {
+        //TODO: get items from firebase firestore
         val demoData = mutableListOf(
-            Room(1,1, "Living room", Room.Type.livingroom, 4),
-            Room(1,2, "Bathroom", Room.Type.bathroom, 3),
-            Room(1,3, "Kitchen", Room.Type.kitchen, 6),
-            Room(2,3, "Kitchen", Room.Type.kitchen, 6)
+            Room(1,1, "Living room","living room" , 4),
+            Room(1,2, "Bathroom", "bathroom", 3),
+            Room(1,3, "Kitchen", "kitchen", 6),
+            //always add viewType 2 as the last element
+            Room(2,3, "Kitchen", "kitchen", 6)
         )
         roomRecyclerViewAdapter = RoomRecyclerViewAdapter()
         roomRecyclerViewAdapter.itemClickListener = this

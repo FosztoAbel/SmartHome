@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.smarthome.databinding.RowAddBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceClimateBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceLedBinding
-import hu.bme.aut.android.smarthome.model.RoomDevice
+import hu.bme.aut.android.smarthome.model.Device
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val roomDeviceList = mutableListOf<RoomDevice>()
+    private val roomDeviceList = mutableListOf<Device>()
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -49,13 +49,13 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    fun addItem(roomDevice: RoomDevice) {
+    fun addItem(roomDevice: Device) {
         val size = roomDeviceList.size
         roomDeviceList.add(roomDevice)
         notifyItemInserted(size)
     }
 
-    fun addAll(roomDevices: List<RoomDevice>) {
+    fun addAll(roomDevices: List<Device>) {
         val size = roomDeviceList.size
         roomDeviceList += roomDevices
         notifyItemRangeInserted(size, roomDevices.size)
@@ -73,7 +73,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     inner class ViewHolderRoomDeviceLed(val binding: RowRoomDeviceLedBinding) : RecyclerView.ViewHolder(binding.root) {
-        var roomDevice: RoomDevice? = null
+        var roomDevice: Device? = null
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
@@ -87,7 +87,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
     //for future updates
     inner class ViewHolderRoomDeviceClimate(val binding: RowRoomDeviceClimateBinding) : RecyclerView.ViewHolder(binding.root) {
-        var roomDevice: RoomDevice? = null
+        var roomDevice: Device? = null
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
@@ -100,7 +100,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     inner class ViewHolderRoomDeviceAdd(val binding: RowAddBinding) : RecyclerView.ViewHolder(binding.root) {
-        var roomDevice: RoomDevice? = null
+        var roomDevice: Device? = null
 
         fun bind(position: Int){
             val roomDevice = roomDeviceList[position]
@@ -114,7 +114,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     interface RoomDevicesItemClickListener {
-        fun onItemClick(roomDevice: RoomDevice)
+        fun onItemClick(roomDevice: Device)
         fun onItemLongClick(position: Int, view: View): Boolean
     }
 }

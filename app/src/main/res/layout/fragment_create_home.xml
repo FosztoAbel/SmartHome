@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity">
 
-
-
     <ImageView
         android:id="@+id/arrowImage"
         android:layout_width="95dp"
@@ -16,44 +14,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
-        android:id="@+id/newRoomTV"
+        android:id="@+id/newHomeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/dosis_bold"
-        android:text="@string/create_new_room"
+        android:text="@string/create_new_home"
         android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
 
     <ImageView
-        android:id="@+id/roomImageView"
+        android:id="@+id/homeImageView"
         android:layout_width="173dp"
         android:layout_height="147dp"
         android:layout_marginTop="38dp"
         android:src="@drawable/ic_photo_size_select_actual"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newRoomTV" />
+        app:layout_constraintTop_toBottomOf="@+id/newHomeTV" />
 
     <TextView
-        android:id="@+id/roomNameTV"
+        android:id="@+id/homeNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/dosis_regular"
-        android:text="@string/room_name"
+        android:text="@string/home_name"
         android:textSize="15sp"
         android:layout_marginTop="30dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/homeImageView" />
 
     <EditText
-        android:id="@+id/roomNameInput"
+        android:id="@+id/homeNameInput"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
@@ -63,32 +60,32 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomNameTV" />
+        app:layout_constraintTop_toBottomOf="@+id/homeNameTV" />
 
     <TextView
-        android:id="@+id/roomTypeTV"
+        android:id="@+id/homePasswordTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginStart="25dp"
         android:fontFamily="@font/dosis_regular"
-        android:text="@string/type"
+        android:text="@string/password"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/homeNameInput" />
 
     <EditText
-        android:id="@+id/roomTypeInput"
+        android:id="@+id/homePasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/custom_input_field"
         android:ems="16"
         android:fontFamily="@font/dosis_medium"
-        android:inputType="text"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomTypeTV" />
+        app:layout_constraintTop_toBottomOf="@+id/homePasswordTV" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuidelineLoginPage"
@@ -98,13 +95,13 @@
         app:layout_constraintGuide_begin="87dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonCreateNewRoom"
+        android:id="@+id/buttonCreateNewHome"
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginBottom="120dp"
         android:background="@drawable/custom_register_button"
         android:fontFamily="@font/dosis_medium"
-        android:text="@string/save_room"
+        android:text="@string/save_home"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -22,6 +22,12 @@
             android:id="@+id/action_swipeMenuFragment_to_roomDevicesScreenFragment"
             app:destination="@id/roomDevicesScreenFragment">
         </action>
+        <action
+            android:id="@+id/action_swipeMenuFragment_to_createHomeFragment"
+            app:destination="@id/createHomeFragment" />
+        <action
+            android:id="@+id/action_swipeMenuFragment_to_joinHomeFragment"
+            app:destination="@id/joinHomeFragment" />
 
     </fragment>
     <fragment
@@ -100,5 +106,21 @@
         <action
             android:id="@+id/action_climateSettingsFragment_to_roomDevicesScreenFragment"
             app:destination="@id/roomDevicesScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createHomeFragment"
+        android:name="hu.bme.aut.android.smarthome.homeFragments.CreateHomeFragment"
+        android:label="CreateHomeFragment" >
+        <action
+            android:id="@+id/action_createHomeFragment_to_swipeMenuFragment"
+            app:destination="@id/swipeMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinHomeFragment"
+        android:name="hu.bme.aut.android.smarthome.homeFragments.JoinHomeFragment"
+        android:label="JoinHomeFragment" >
+        <action
+            android:id="@+id/action_joinHomeFragment_to_swipeMenuFragment"
+            app:destination="@id/swipeMenuFragment" />
     </fragment>
 </navigation>

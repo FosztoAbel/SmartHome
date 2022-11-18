@@ -40,5 +40,118 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="135dp" />
 
+    <TextView
+        android:id="@+id/notificationsTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/notifications"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsNotificationsBackground"
+        app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
+        app:layout_constraintTop_toTopOf="@+id/settingsNotificationsBackground" />
+
+    <ImageView
+        android:id="@+id/settingsNotificationsBackground"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:srcCompat="@drawable/custom_room_image" />
+
+    <ImageView
+        android:id="@+id/notificationsIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/ic_notifications"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsNotificationsBackground"
+        app:layout_constraintStart_toStartOf="@+id/settingsNotificationsBackground"
+        app:layout_constraintTop_toTopOf="@+id/settingsNotificationsBackground" />
+
+    <Switch
+        android:id="@+id/switchNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_switch"
+        android:hapticFeedbackEnabled="true"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsNotificationsBackground"
+        app:layout_constraintEnd_toEndOf="@+id/settingsNotificationsBackground"
+        app:layout_constraintTop_toTopOf="@+id/settingsNotificationsBackground"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <TextView
+        android:id="@+id/joinHomeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/join_home"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsJoinHomeBackground"
+        app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
+        app:layout_constraintTop_toTopOf="@+id/settingsJoinHomeBackground" />
+
+    <ImageView
+        android:id="@+id/settingsJoinHomeBackground"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsNotificationsBackground"
+        app:srcCompat="@drawable/custom_room_image" />
+
+    <ImageView
+        android:id="@+id/joinHomeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/ic_meeting_room"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsJoinHomeBackground"
+        app:layout_constraintStart_toStartOf="@+id/settingsJoinHomeBackground"
+        app:layout_constraintTop_toTopOf="@+id/settingsJoinHomeBackground" />
+
+    <TextView
+        android:id="@+id/createHomeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/create_home"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsCreateHomeBackground"
+        app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
+        app:layout_constraintTop_toTopOf="@+id/settingsCreateHomeBackground" />
+
+    <ImageView
+        android:id="@+id/settingsCreateHomeBackground"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsJoinHomeBackground"
+        app:srcCompat="@drawable/custom_room_image" />
+
+    <ImageView
+        android:id="@+id/createHomeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/ic_apartment"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsCreateHomeBackground"
+        app:layout_constraintStart_toStartOf="@+id/settingsCreateHomeBackground"
+        app:layout_constraintTop_toTopOf="@+id/settingsCreateHomeBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

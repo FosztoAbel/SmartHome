@@ -155,30 +155,6 @@
         app:layout_constraintEnd_toEndOf="@+id/changePasswordInput"
         app:layout_constraintTop_toTopOf="@+id/changePasswordInput" />
 
-    <TextView
-        android:id="@+id/allowNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/dosis_regular"
-        android:text="@string/notifications_allow"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changePasswordInput" />
-
-    <Switch
-        android:id="@+id/switchNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_switch"
-        android:hapticFeedbackEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="18dp"
-        app:layout_constraintStart_toEndOf="@+id/allowNotifications"
-        app:layout_constraintTop_toBottomOf="@+id/changePasswordInput"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSaveChanges"
         android:layout_width="250dp"
@@ -191,6 +167,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allowNotifications" />
+        app:layout_constraintTop_toBottomOf="@+id/changePasswordInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

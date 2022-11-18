@@ -73,17 +73,17 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             binding.roomNameHomeTV.text = room.name
             binding.deviceNumberHomeTV.text = room.deviceNumber.toString() + " devices"
 
-            val resource = when (room.type) {
-               Room.Type.bathroom -> R.drawable.custom_room_image
-               Room.Type.bedroom -> R.drawable.custom_room_image
-               Room.Type.livingroom -> R.drawable.custom_room_image
-               Room.Type.study -> R.drawable.custom_room_image
-               Room.Type.diningroom -> R.drawable.custom_room_image
-               Room.Type.garage -> R.drawable.custom_room_image
-               Room.Type.kitchen -> R.drawable.custom_room_image
-                else -> {}
-         }
-            binding.roomImage.setImageResource(resource as Int)
+//            val resource = when (room.type) {
+//               Room.Type.bathroom -> R.drawable.custom_room_image
+//               Room.Type.bedroom -> R.drawable.custom_room_image
+//               Room.Type.livingroom -> R.drawable.custom_room_image
+//               Room.Type.study -> R.drawable.custom_room_image
+//               Room.Type.diningroom -> R.drawable.custom_room_image
+//               Room.Type.garage -> R.drawable.custom_room_image
+//               Room.Type.kitchen -> R.drawable.custom_room_image
+//                else -> {}
+//         }
+//            binding.roomImage.setImageResource(resource as Int)
 
 //            itemView.setOnClickListener {
 //                room?.let { room -> itemClickListener?.onItemClick(room) }

@@ -69,5 +69,13 @@
     <string name="change_name">Change name</string>
     <string name="log_out">Log out</string>
     <string name="click_here_to_change_password">Click here to change password!</string>
+    <string name="homes">Homes</string>
+    <string name="notifications">Notifications</string>
+    <string name="join_home">Join home</string>
+    <string name="create_home">Create home</string>
+    <string name="create_new_home">Create new home</string>
+    <string name="home_name">Home name</string>
+    <string name="save_home">Save home</string>
+    <string name="join_existing_home">Join existing home</string>
 
 </resources>

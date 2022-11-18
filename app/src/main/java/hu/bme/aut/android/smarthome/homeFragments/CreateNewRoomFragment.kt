@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.navigation.fragment.findNavController
 import hu.bme.aut.android.smarthome.MainMenuActivity
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentCreateNewRoomBinding
 import hu.bme.aut.android.smarthome.databinding.FragmentLoginBinding
 import hu.bme.aut.android.smarthome.databinding.FragmentProfileMenuBinding
+import hu.bme.aut.android.smarthome.model.Room
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +50,23 @@ class CreateNewRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //TODO: add new items to the firebase firestore
         binding.buttonCreateNewRoom.setOnClickListener {
+            val roomName = binding.roomNameInput.text.toString()
+            val roomType = binding.roomTypeInput.text.toString()
+            val deviceNumber = 0
+            val viewType = 1
+            val id = 1
+            // get last id from database and +1 will be the new id
+            //val newRoom = Room(viewType,id,roomName,roomType,deviceNumber)
+
+
+
+
+
+
+
             findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
         }
         binding.arrowImage.setOnClickListener {
