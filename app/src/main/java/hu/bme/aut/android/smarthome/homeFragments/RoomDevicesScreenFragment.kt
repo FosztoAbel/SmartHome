@@ -16,25 +16,15 @@ import hu.bme.aut.android.smarthome.databinding.FragmentRoomDevicesScreenBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 import hu.bme.aut.android.smarthome.model.Device
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.RoomDevicesItemClickListener {
 
     private lateinit var binding: FragmentRoomDevicesScreenBinding
     private lateinit var roomDevicesRecyclerViewAdapter: RoomDevicesRecyclerViewAdapter
     private lateinit var dialog: ChangeNameDialog
-    private var param1: String? = null
-    private var param2: String? = null
     private val args: RoomDevicesScreenFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
 
         dialog = ChangeNameDialog.newInstance(
             titleResId = R.string.change_name,
@@ -50,7 +40,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRoomDevicesScreenBinding.inflate(inflater, container, false)
-        return binding.root;
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -69,7 +59,6 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         setupRecyclerView()
     }
 
-
     private fun setupRecyclerView() {
         val demoData = mutableListOf(
             Device(1,1,"light",0),
@@ -83,18 +72,6 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
             roomDevicesRecyclerViewAdapter
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RoomDevicesScreenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
-
     override fun onItemClick(roomDevice: Device) {
         if(roomDevice.viewType == 1) {
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_ledLightSettingsFragment)
@@ -105,8 +82,6 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         if(roomDevice.viewType == 3){
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_climateSettingsFragment)
         }
-
-
     }
 
     override fun onItemLongClick(position: Int, view: View): Boolean {

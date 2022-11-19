@@ -8,25 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import hu.bme.aut.android.smarthome.R
-import hu.bme.aut.android.smarthome.databinding.FragmentCreateHomeBinding
 import hu.bme.aut.android.smarthome.databinding.FragmentJoinHomeBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 class JoinHomeFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-
     private lateinit var binding: FragmentJoinHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -34,42 +22,35 @@ class JoinHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentJoinHomeBinding.inflate(inflater, container, false)
-        return binding.root;
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var toggleVisibility = false
+        togglePasswordVisibility()
 
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_joinHomeFragment_to_swipeMenuFragment)
         }
-        binding.passwordJoinHomeToggleVisibility.setOnClickListener {
-            if(!toggleVisibility) {
-                binding.passwordJoinHomeToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.joinHomePasswordInput.setTransformationMethod(null)
-                toggleVisibility = true
-            }
-            else {
-                binding.passwordJoinHomeToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.joinHomePasswordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
-            }
-        }
+
         binding.buttonJoinHome.setOnClickListener {
             findNavController().navigate(R.id.action_joinHomeFragment_to_swipeMenuFragment)
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            JoinHomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun togglePasswordVisibility() {
+        var toggleVisibility = false
+        binding.passwordJoinHomeToggleVisibility.setOnClickListener {
+            if (!toggleVisibility) {
+                binding.passwordJoinHomeToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
+                binding.joinHomePasswordInput.setTransformationMethod(null)
+                toggleVisibility = true
+            } else {
+                binding.passwordJoinHomeToggleVisibility.setImageResource(R.drawable.ic_visibility)
+                binding.joinHomePasswordInput.setTransformationMethod(PasswordTransformationMethod())
+                toggleVisibility = false
             }
+        }
     }
 }

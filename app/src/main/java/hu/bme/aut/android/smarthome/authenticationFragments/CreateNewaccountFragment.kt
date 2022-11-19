@@ -11,24 +11,13 @@ import com.google.firebase.auth.*
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentCreateNewAccountBinding
 
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class CreateNewaccountFragment : AbstractLoginAndRegister(){
 
     private lateinit var binding: FragmentCreateNewAccountBinding
     private lateinit var firebaseAuth : FirebaseAuth
 
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -38,36 +27,37 @@ class CreateNewaccountFragment : AbstractLoginAndRegister(){
     ): View {
         binding = FragmentCreateNewAccountBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        return binding.root;
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var toggleVisibility = false
+        togglePasswordVisibility()
 
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_createNewaccountFragment_to_loginFragment)
         }
-
-        binding.passwordCreateAccountToggleVisibility.setOnClickListener {
-            if(!toggleVisibility) {
-                binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.passwordRegisterInput.setTransformationMethod(null)
-                toggleVisibility = true
-            }
-            else {
-                binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.passwordRegisterInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
-            }
-        }
-
         binding.createNewAccountButton.setOnClickListener{
             registerClick()
         }
     }
 
-    private fun validateForm(): Boolean {
+    private fun togglePasswordVisibility() {
+        var toggleVisibility = false
+        binding.passwordCreateAccountToggleVisibility.setOnClickListener {
+            if (!toggleVisibility) {
+                binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
+                binding.passwordRegisterInput.setTransformationMethod(null)
+                toggleVisibility = true
+            } else {
+                binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility)
+                binding.passwordRegisterInput.setTransformationMethod(PasswordTransformationMethod())
+                toggleVisibility = false
+            }
+        }
+    }
+
+        private fun validateForm(): Boolean {
         if (binding.fullNameInput.text.isEmpty()) {
             return false
         }
@@ -100,11 +90,6 @@ class CreateNewaccountFragment : AbstractLoginAndRegister(){
                     .setDisplayName(binding.fullNameInput.text.toString())
                     .build()
                 firebaseUser?.updateProfile(profileChangeRequest)
-//                val phoneChange = PhoneAuthCredential
-//                    .setPhoneNumber(binding.phoneNumberRegisterInput.text.toString())
-//                    .build()
-//                firebaseUser?.updatePhoneNumber(phoneChange)
-
 
                 Snackbar.make(binding.root,"Registration successful!",Snackbar.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_createNewaccountFragment_to_loginFragment)
@@ -113,17 +98,6 @@ class CreateNewaccountFragment : AbstractLoginAndRegister(){
                 hideProgressDialog()
 
                 Snackbar.make(binding.root,exception.message.toString(),Snackbar.LENGTH_LONG).show()
-            }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CreateNewaccountFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
             }
     }
 }

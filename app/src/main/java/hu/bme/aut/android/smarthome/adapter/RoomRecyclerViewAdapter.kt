@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.RowAddBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomBinding
 import hu.bme.aut.android.smarthome.model.Room

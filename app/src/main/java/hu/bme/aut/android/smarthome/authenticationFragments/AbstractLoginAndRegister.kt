@@ -1,13 +1,12 @@
 package hu.bme.aut.android.smarthome.authenticationFragments
 
 import android.app.ProgressDialog
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 
+@Suppress("DEPRECATION")
 abstract class AbstractLoginAndRegister : Fragment() {
 
     private var progressDialog: ProgressDialog? = null

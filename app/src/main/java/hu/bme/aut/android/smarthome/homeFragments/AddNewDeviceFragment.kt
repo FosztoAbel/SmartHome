@@ -9,27 +9,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.AddNewDeviceScreenRecyclerViewAdapter
-import hu.bme.aut.android.smarthome.adapter.RoomRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentAddNewDeviceBinding
 import hu.bme.aut.android.smarthome.model.AvailableDevice
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.AddNewDeviceScreenItemClickListener {
 
     private lateinit var binding : FragmentAddNewDeviceBinding
     private lateinit var addNewDeviceScreenRecyclerView : AddNewDeviceScreenRecyclerViewAdapter
 
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -69,19 +58,8 @@ class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.A
 
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddNewDeviceFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
-
     override fun onItemClick(availableDevice: AvailableDevice) {
-       System.out.println("asdasd")
+
     }
 
     override fun onItemLongClick(position: Int, view: View): Boolean {

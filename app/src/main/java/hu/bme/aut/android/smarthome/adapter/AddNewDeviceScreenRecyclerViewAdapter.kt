@@ -70,11 +70,11 @@ class AddNewDeviceScreenRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.
         fun bind(position: Int) {
               val availableDevice = availableDeviceList[position]
             binding.availableDeviceNameTV.setOnClickListener {
-                availableDevice?.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
+                availableDevice.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
                 }
             }
             binding.lightbulbImage.setOnClickListener {
-                availableDevice?.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
+                availableDevice.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
                 }
             }
         }
@@ -88,11 +88,11 @@ class AddNewDeviceScreenRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.
         fun bind(position: Int) {
             val availableDevice = availableDeviceList[position]
             binding.availableDeviceNameTV.setOnClickListener {
-                availableDevice?.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
+                availableDevice.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
                 }
             }
             binding.cloudImage.setOnClickListener {
-                availableDevice?.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
+                availableDevice.let { availableDevice -> itemClickListener?.onItemClick(availableDevice)
                 }
             }
         }

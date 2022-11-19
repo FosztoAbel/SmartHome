@@ -10,23 +10,14 @@ import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentLedLightSettingsBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class LedLightSettingsFragment : Fragment() {
 
     private lateinit var binding : FragmentLedLightSettingsBinding
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var dialog : ChangeNameDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-            dialog = ChangeNameDialog.newInstance(
+        dialog = ChangeNameDialog.newInstance(
             titleResId = R.string.change_name,
             description = getString(R.string.new_name),
             inputResId = R.drawable.ic_home,   //not sure why ? later delete
@@ -56,18 +47,6 @@ class LedLightSettingsFragment : Fragment() {
         binding.editImage.setOnClickListener {
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)
         }
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LedLightSettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
 

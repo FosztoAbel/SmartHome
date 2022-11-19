@@ -26,26 +26,13 @@ class LoginFragment : AbstractLoginAndRegister() {
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        return binding.root;
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var toggleVisibility = false
-
-        binding.passwordLoginToggleVisibility.setOnClickListener {
-            if(!toggleVisibility) {
-                binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.passwordInput.setTransformationMethod(null)
-                toggleVisibility = true
-            }
-            else {
-                binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.passwordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
-            }
-        }
+        togglePasswordVisibility()
 
         binding.loginButton.setOnClickListener {
             loginClick()
@@ -57,6 +44,21 @@ class LoginFragment : AbstractLoginAndRegister() {
             findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
 
+    }
+
+    private fun togglePasswordVisibility() {
+        var toggleVisibility = false
+        binding.passwordLoginToggleVisibility.setOnClickListener {
+            if (!toggleVisibility) {
+                binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
+                binding.passwordInput.setTransformationMethod(null)
+                toggleVisibility = true
+            } else {
+                binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility)
+                binding.passwordInput.setTransformationMethod(PasswordTransformationMethod())
+                toggleVisibility = false
+            }
+        }
     }
 
     private fun validateForm(): Boolean {

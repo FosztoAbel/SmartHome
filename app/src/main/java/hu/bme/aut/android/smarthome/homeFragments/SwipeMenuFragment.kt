@@ -28,13 +28,13 @@ class SwipeMenuFragment : Fragment() {
         binding.vpMenu.adapter = SwipeMenuPagerAdapter(this)
         val tabLayout = binding.tabLayout
         TabLayoutMediator(tabLayout, binding.vpMenu) { tab, position ->
-            val imageViewHome = getLayoutInflater().inflate(R.layout.custom_tab_image, null);
+            val imageViewHome = getLayoutInflater().inflate(R.layout.custom_tab_image, null)
             imageViewHome.setBackgroundResource(R.drawable.ic_home_orange)
 
-            val imageViewPresets = getLayoutInflater().inflate(R.layout.custom_tab_image, null);
+            val imageViewPresets = getLayoutInflater().inflate(R.layout.custom_tab_image, null)
             imageViewPresets.setBackgroundResource(R.drawable.ic_access_time_orange)
 
-            val imageViewSettings = getLayoutInflater().inflate(R.layout.custom_tab_image, null);
+            val imageViewSettings = getLayoutInflater().inflate(R.layout.custom_tab_image, null)
             imageViewSettings.setBackgroundResource(R.drawable.ic_settings_orange)
 
             if(position == 0) tab.setCustomView(imageViewHome)
