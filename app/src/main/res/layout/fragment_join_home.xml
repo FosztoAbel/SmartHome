@@ -27,6 +27,18 @@
         app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
 
     <TextView
+        android:id="@+id/joinHomeDisclaimerTV"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_semibold"
+        android:text="@string/join_home_disclaimer"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joinHomeTV" />
+
+    <TextView
         android:id="@+id/joinHomeNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +49,7 @@
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joinHomeTV" />
+        app:layout_constraintTop_toBottomOf="@+id/joinHomeDisclaimerTV" />
 
     <EditText
         android:id="@+id/joinHomeNameInput"

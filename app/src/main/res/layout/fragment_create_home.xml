@@ -36,18 +36,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newHomeTV" />
 
+
+    <TextView
+        android:id="@+id/createHomeDisclaimerTV"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_semibold"
+        android:text="@string/create_home_disclaimer"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeImageView" />
+
     <TextView
         android:id="@+id/homeNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/dosis_regular"
         android:text="@string/home_name"
         android:textSize="15sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/createHomeDisclaimerTV" />
 
     <EditText
         android:id="@+id/homeNameInput"

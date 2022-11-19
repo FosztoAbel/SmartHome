@@ -57,26 +57,19 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
             findNavController().navigate(R.id.action_swipeMenuFragment_to_profileFragment)
         }
 
-
-        var correctName: String
         firestore.collection("homes")
             .get()
             .addOnSuccessListener { result ->
                 for(document in result){
-                    val currDoc = document.toObject<Home>()
-                    if(currDoc.joinedUsers?.get(0) == user?.uid) {
-                        correctName = currDoc.name
-                        val docRef = firestore.collection("homes").document(correctName)
-                        docRef.get().addOnSuccessListener { documentSanpshot ->
-                            val currentHome = documentSanpshot.toObject<Home>()
-                            binding.currentHome.text = "Current home: " + currentHome!!.name
+                    val currentDocument = document.toObject<Home>()
+                    for(iterator in currentDocument.joinedUsers!!){
+                        if(iterator.equals(user?.uid)){
+                            binding.currentHome.text = "Current home: " + currentDocument.name
                         }
                     }
                 }
             }
-            .addOnFailureListener{
 
-            }
         setupRecyclerView()
     }
 

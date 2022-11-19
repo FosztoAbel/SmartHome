@@ -2,14 +2,13 @@ package hu.bme.aut.android.smarthome.homeFragments
 
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -56,43 +55,38 @@ class CreateHomeFragment : Fragment() {
         val newHomeName = binding.homeNameInput.text.toString()
         val rooms: MutableList<Room> = mutableListOf()
         val users: MutableList<String?> = mutableListOf()
+
         if(chechFields()) {
-            users.add(user?.uid)
-
-            if(chechIfUserHasHome(user)){
-                    //TODO: If has home true then delete previous home
-
-            }
-            else{
-                val newHome = Home(1, newHomePassword, newHomeName, rooms, users)
-                val dbRef = firestore.collection("homes").document(newHomeName)
-
-                //TODO: add Snackbar binding.root???
-                dbRef.set(newHome)
-                    .addOnSuccessListener {
-                        findNavController().navigate(R.id.action_createHomeFragment_to_swipeMenuFragment)
-                        // Snackbar.make(binding.root,"New home successfully added!", Snackbar.LENGTH_LONG).show()
+            firestore.collection("homes")
+                .get()
+                .addOnSuccessListener { result ->
+                    for(document in result){
+                        val currentDocument = document.toObject<Home>()
+                        for(iterator in currentDocument.joinedUsers!!){
+                            if(iterator.equals(user?.uid)){
+                                var list = currentDocument.joinedUsers
+                                list.remove(iterator)
+                                firestore.collection("homes").document(currentDocument.name)
+                                    .update("joinedUsers", list)
+                            }
+                        }
                     }
-            }
+                        users.add(user?.uid)
+                        val newHome = Home(1, newHomePassword, newHomeName, rooms, users)
+                        val dbRef = firestore.collection("homes").document(newHomeName)
+
+                        dbRef.set(newHome)
+                            .addOnSuccessListener {
+                                findNavController().navigate(R.id.action_createHomeFragment_to_swipeMenuFragment)
+                            }
+
+                }
+            Thread.sleep(1000)
+            Snackbar.make(binding.root,"New home successfully added!", Snackbar.LENGTH_LONG).show()
         }
         else{
             Snackbar.make(binding.root,"Please fill out all the fields!", Snackbar.LENGTH_LONG).show()
         }
-    }
-
-    private fun chechIfUserHasHome(user: FirebaseUser?): Boolean{
-        var value = false
-         firestore.collection("homes")
-            .get()
-            .addOnSuccessListener { result ->
-                for(document in result){
-                    val currDoc = document.toObject<Home>()
-                    if(currDoc.joinedUsers?.get(0) == user?.uid) {
-                        return@addOnSuccessListener
-                    }
-                }
-            }
-        return value
     }
 
     private fun chechFields(): Boolean{

@@ -77,6 +77,8 @@
     <string name="home_name">Home name</string>
     <string name="save_home">Save home</string>
     <string name="join_existing_home">Join existing home</string>
-    <string name="current_home_smeklak">Current home: SmekLak</string>
+    <string name="current_home">Current home: You dont have a home yet!</string>
+    <string name="create_home_disclaimer">If you create a new home you will be removed from your previous home!</string>
+    <string name="join_home_disclaimer">If you join an existing home you will be removed from your previous home!</string>
 
 </resources>
