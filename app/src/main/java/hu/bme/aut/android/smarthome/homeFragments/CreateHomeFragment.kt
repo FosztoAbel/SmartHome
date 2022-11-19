@@ -53,8 +53,7 @@ class CreateHomeFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         val newHomePassword = binding.creatHomePasswordInput.text.toString()
         val newHomeName = binding.homeNameInput.text.toString()
-        val rooms: MutableList<Room> = mutableListOf()
-        val users: MutableList<String?> = mutableListOf()
+         val users: MutableList<String?> = mutableListOf()
 
         if(chechFields()) {
             firestore.collection("homes")
@@ -72,7 +71,7 @@ class CreateHomeFragment : Fragment() {
                         }
                     }
                         users.add(user?.uid)
-                        val newHome = Home(1, newHomePassword, newHomeName, rooms, users)
+                        val newHome = Home(1, newHomePassword, newHomeName, users)
                         val dbRef = firestore.collection("homes").document(newHomeName)
 
                         dbRef.set(newHome)

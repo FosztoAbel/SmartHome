@@ -7,5 +7,8 @@ data class Room(
     val name: String,
     val type: String,
     val deviceNumber: Int,
-   // val devices : MutableList<Device>
-)
+){
+    constructor() : this(1,1,
+        "", "default", 0
+    )
+}

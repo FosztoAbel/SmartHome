@@ -7,10 +7,9 @@ data class Home(
     val password: String,
     val name: String,
     //val roomNumber: Int,
-    val rooms: MutableList<Room>?,
     val joinedUsers: MutableList<String?>?
 ){
     constructor() : this(1,"",
-        "", mutableListOf(), mutableListOf()
+        "", mutableListOf()
     )
 }

@@ -6,12 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentCreateNewRoomBinding
+import hu.bme.aut.android.smarthome.model.Home
+import hu.bme.aut.android.smarthome.model.Room
+import kotlin.random.Random
 
 class CreateNewRoomFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateNewRoomBinding
+    private val firestore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +36,8 @@ class CreateNewRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val user = FirebaseAuth.getInstance().currentUser
 
-        //TODO: add new items to the firebase firestore
         binding.buttonCreateNewRoom.setOnClickListener {
             val roomName = binding.roomNameInput.text.toString()
             val roomType = binding.roomTypeInput.text.toString()
@@ -37,15 +45,24 @@ class CreateNewRoomFragment : Fragment() {
             val viewType = 1
             val id = 1
             // get last id from database and +1 will be the new id
-            //val newRoom = Room(viewType,id,roomName,roomType,deviceNumber)
+            val newRoom = Room(viewType,id,roomName,roomType,deviceNumber)
 
-
-
-
-
-
-
-            findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
+            firestore.collection("homes")
+                .get()
+                .addOnSuccessListener { result ->
+                    for(document in result){
+                        val currentDocument = document.toObject<Home>()
+                        for(iterator in currentDocument.joinedUsers!!){
+                            if(iterator.equals(user?.uid)){
+                                val dbRef = firestore.collection("homes").document(currentDocument.name).collection("rooms").document(roomName)
+                                dbRef.set(newRoom)
+                                    .addOnSuccessListener {
+                                        findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
+                                    }
+                            }
+                        }
+                    }
+                }
         }
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
