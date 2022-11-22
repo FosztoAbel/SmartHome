@@ -10,17 +10,30 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
+import hu.bme.aut.android.smarthome.adapter.AddNewDeviceScreenRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.adapter.RoomDevicesRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentRoomDevicesScreenBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 import hu.bme.aut.android.smarthome.model.Device
+import hu.bme.aut.android.smarthome.model.Home
+import hu.bme.aut.android.smarthome.model.Room
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.RoomDevicesItemClickListener {
 
     private lateinit var binding: FragmentRoomDevicesScreenBinding
     private lateinit var roomDevicesRecyclerViewAdapter: RoomDevicesRecyclerViewAdapter
     private lateinit var dialog: ChangeNameDialog
+    val firestore = Firebase.firestore
     private val args: RoomDevicesScreenFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +60,10 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val user = FirebaseAuth.getInstance().currentUser
+
         binding.roomNameDevicesTV.text = args.roomNameString
+
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_swipeMenuFragment)
         }
@@ -56,31 +72,59 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)
         }
 
-        setupRecyclerView()
+        setupRecyclerView(user)
     }
 
-    private fun setupRecyclerView() {
-        val demoData = mutableListOf(
-            Device(1,1,"light",0),
-            Device(3,2,"climate",0),
-            Device(2,3,"add",0)
-            )
+    private fun setupRecyclerView(user: FirebaseUser?) {
+
+        var liveData: MutableList<Device> = mutableListOf()
         roomDevicesRecyclerViewAdapter = RoomDevicesRecyclerViewAdapter()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val homes = firestore.collection("homes")
+                .get()
+                .await()
+                .toObjects<Home>()
+            for (home in homes) {
+                for (iterator in home.joinedUsers!!) {
+                    if (iterator.equals(user?.uid)) {
+                        val devices = firestore.collection("homes").document(home.name)
+                                .collection("rooms")
+                                .document(args.roomNameString.toString())
+                                .collection("devices")
+                                .get()
+                                .await()
+                                .toObjects<Device>()
+                        CoroutineScope(Dispatchers.Main).launch {
+                           for(device in devices){
+                               liveData.add(device)
+                           }
+                            liveData.add(Device(2, 0, "Add button", false))
+                            roomDevicesRecyclerViewAdapter.addAll(liveData)
+                        }
+                    }
+                }
+            }
+        }
+
         roomDevicesRecyclerViewAdapter.itemClickListener = this
-        roomDevicesRecyclerViewAdapter.addAll(demoData)
+        roomDevicesRecyclerViewAdapter.addAll(liveData)
         binding.root.findViewById<RecyclerView>(R.id.room_devices).adapter =
             roomDevicesRecyclerViewAdapter
     }
 
     override fun onItemClick(roomDevice: Device) {
         if(roomDevice.viewType == 1) {
-            findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_ledLightSettingsFragment)
+            val action = RoomDevicesScreenFragmentDirections.actionRoomDevicesScreenFragmentToLedLightSettingsFragment(args.roomNameString.toString(), roomDevice.name)
+            findNavController().navigate(action)
         }
         if(roomDevice.viewType == 2){
-            findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_addNewDeviceFragment)
+            val action = RoomDevicesScreenFragmentDirections.actionRoomDevicesScreenFragmentToAddNewDeviceFragment(args.roomNameString.toString())
+            findNavController().navigate(action)
         }
         if(roomDevice.viewType == 3){
-            findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_climateSettingsFragment)
+            val action = RoomDevicesScreenFragmentDirections.actionRoomDevicesScreenFragmentToClimateSettingsFragment(args.roomNameString.toString(), roomDevice.name)
+            findNavController().navigate(action)
         }
     }
 

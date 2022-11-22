@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -20,10 +21,6 @@ class CreateNewRoomFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateNewRoomBinding
     private val firestore = Firebase.firestore
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,26 +44,36 @@ class CreateNewRoomFragment : Fragment() {
             // get last id from database and +1 will be the new id
             val newRoom = Room(viewType,id,roomName,roomType,deviceNumber)
 
-            firestore.collection("homes")
-                .get()
-                .addOnSuccessListener { result ->
-                    for(document in result){
-                        val currentDocument = document.toObject<Home>()
-                        for(iterator in currentDocument.joinedUsers!!){
-                            if(iterator.equals(user?.uid)){
-                                val dbRef = firestore.collection("homes").document(currentDocument.name).collection("rooms").document(roomName)
-                                dbRef.set(newRoom)
-                                    .addOnSuccessListener {
-                                        findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
-                                    }
+            if(checkFields())
+            {
+                firestore.collection("homes")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for(document in result){
+                            val currentDocument = document.toObject<Home>()
+                            for(iterator in currentDocument.joinedUsers!!){
+                                if(iterator.equals(user?.uid)){
+                                    val dbRef = firestore.collection("homes").document(currentDocument.name).collection("rooms").document(roomName)
+                                    dbRef.set(newRoom)
+                                        .addOnSuccessListener {
+                                            findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
+                                        }
+                                }
                             }
                         }
                     }
-                }
+            }
+            else{
+                Snackbar.make(binding.root,"Please fill out all the fields!", Snackbar.LENGTH_LONG).show()
+            }
         }
+
         binding.arrowImage.setOnClickListener {
             findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)
         }
 
+    }
+    private fun checkFields(): Boolean{
+        return !(binding.roomNameInput.text.isEmpty() or binding.roomTypeInput.text.isEmpty())
     }
 }

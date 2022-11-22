@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.databinding.RowAddBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceClimateBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceLedBinding
@@ -14,6 +16,8 @@ import hu.bme.aut.android.smarthome.model.Device
 class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val roomDeviceList = mutableListOf<Device>()
+    val firestore = Firebase.firestore
+
 
     companion object {
         const val VIEW_TYPE_ONE = 1
@@ -82,6 +86,8 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
                 roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice)
                 }
             }
+            binding.deviceNameTV.text = roomDevice.name
+
         }
     }
 

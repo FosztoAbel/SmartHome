@@ -1,11 +1,13 @@
 package hu.bme.aut.android.smarthome.homeFragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentClimateSettingsBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
@@ -13,6 +15,8 @@ import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 class ClimateSettingsFragment : Fragment() {
     private lateinit var binding : FragmentClimateSettingsBinding
     private lateinit var dialog: ChangeNameDialog
+    private val args: ClimateSettingsFragmentArgs by navArgs()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +37,19 @@ class ClimateSettingsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.climateSettingsTV.text = args.deviceNameString +" settings"
+
         binding.buttonSaveSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_climateSettingsFragment_to_roomDevicesScreenFragment)
+            val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+            findNavController().navigate(action)
         }
         binding.arrowImage.setOnClickListener {
-            findNavController().navigate(R.id.action_climateSettingsFragment_to_roomDevicesScreenFragment)
+            val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+            findNavController().navigate(action)
         }
         binding.editImage.setOnClickListener {
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)

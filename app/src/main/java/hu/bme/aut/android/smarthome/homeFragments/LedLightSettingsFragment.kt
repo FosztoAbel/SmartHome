@@ -1,11 +1,13 @@
 package hu.bme.aut.android.smarthome.homeFragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentLedLightSettingsBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
@@ -14,6 +16,8 @@ class LedLightSettingsFragment : Fragment() {
 
     private lateinit var binding : FragmentLedLightSettingsBinding
     private lateinit var dialog : ChangeNameDialog
+    private val args: LedLightSettingsFragmentArgs by navArgs()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +38,19 @@ class LedLightSettingsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lightSettingsTV.text = args.deviceNameString + " settings"
+
         binding.buttonSaveSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_ledLightSettingsFragment_to_roomDevicesScreenFragment)
+            val action = LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+            findNavController().navigate(action)
         }
         binding.arrowImage.setOnClickListener {
-            findNavController().navigate(R.id.action_ledLightSettingsFragment_to_roomDevicesScreenFragment)
+            val action = LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+            findNavController().navigate(action)
         }
 
         binding.editImage.setOnClickListener {

@@ -15,6 +15,9 @@ import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentJoinHomeBinding
 import hu.bme.aut.android.smarthome.model.Home
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class JoinHomeFragment : Fragment() {
 
@@ -53,10 +56,11 @@ class JoinHomeFragment : Fragment() {
             val homeName = binding.joinHomeNameInput.text.toString()
             val password = binding.joinHomePasswordInput.text.toString()
 
-            var isValid = false
+            var isValid : Boolean
             firestore.collection("homes")
                 .get()
                 .addOnSuccessListener { result ->
+                    isValid = false
                     for(document in result){
                         val currentDocument = document.toObject<Home>()
                         if(currentDocument.name == homeName && currentDocument.password == password){
@@ -76,16 +80,25 @@ class JoinHomeFragment : Fragment() {
                             firestore.collection("homes").document(currentDocument.name)
                                 .update("joinedUsers", list)
                             isValid = true
-                            findNavController().navigate(R.id.action_joinHomeFragment_to_swipeMenuFragment)
                         }
                     }
+                    showSnackbarAndNavigate(isValid)
                 }
-            //TODO: figure out a way to show snackbars
-            if(isValid) Snackbar.make(binding.root,"Successfully joined a new home!", Snackbar.LENGTH_LONG).show()
-            else Snackbar.make(binding.root,"This home does not exist or you entered wrong credentials!", Snackbar.LENGTH_LONG).show()
         }
         else{
             Snackbar.make(binding.root,"Please fill out all the fields!", Snackbar.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showSnackbarAndNavigate(isValid: Boolean) {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (isValid) {Snackbar.make(
+                binding.root, "Successfully joined a new home!", Snackbar.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_joinHomeFragment_to_swipeMenuFragment)
+            }
+            else Snackbar.make(
+                binding.root, "This home does not exist or you entered wrong credentials!", Snackbar.LENGTH_LONG).show()
+                //no need of navigation
         }
     }
 
