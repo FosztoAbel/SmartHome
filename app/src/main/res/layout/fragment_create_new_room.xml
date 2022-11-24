@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity">
 
-
-
     <ImageView
         android:id="@+id/arrowImage"
         android:layout_width="95dp"
@@ -61,6 +59,7 @@
         android:ems="16"
         android:fontFamily="@font/dosis_medium"
         android:inputType="text"
+        android:maxLength="15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/roomNameTV" />
