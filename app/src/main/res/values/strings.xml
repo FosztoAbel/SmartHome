@@ -83,5 +83,8 @@
     <string name="input">Input</string>
     <string name="rename_home">Rename home</string>
     <string name="rename_home_disclaimer">If you rename your home, it will be renamed for every user</string>
+    <string name="delete_question">Are you sure you want to delete this item ?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_item">Delete item</string>
 
 </resources>

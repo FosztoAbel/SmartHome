@@ -20,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.RoomRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentHomeMenuBinding
+import hu.bme.aut.android.smarthome.dialog.DeleteItemDialog
 import hu.bme.aut.android.smarthome.model.Home
 import hu.bme.aut.android.smarthome.model.Room
 import kotlinx.coroutines.*
@@ -33,9 +34,17 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
     private lateinit var binding : FragmentHomeMenuBinding
     private lateinit var roomRecyclerViewAdapter: RoomRecyclerViewAdapter
     val firestore = Firebase.firestore
+    private lateinit var dialogDelete: DeleteItemDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dialogDelete = DeleteItemDialog.newInstance(
+            titleResId = R.string.delete_item,
+            questionResId = R.string.delete_question,
+            positiveButtonResId = R.string.delete,
+            negativeButtonResId = R.string.cancel
+        )
     }
 
     override fun onCreateView(
@@ -133,8 +142,10 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
         }
     }
 
-    override fun onItemLongClick(position: Int, view: View): Boolean {
-        TODO("Not yet implemented")
+    override fun onItemLongClick(room: Room): Boolean {
+        //TODO: Delete room from database
+        if(room.viewType == 1) dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
+        return true
     }
 
 }

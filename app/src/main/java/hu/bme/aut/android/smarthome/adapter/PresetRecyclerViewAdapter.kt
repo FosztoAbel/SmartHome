@@ -72,17 +72,12 @@ class PresetRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             binding.presetNameHomeTV.text = preset.name
             binding.presetTimeTV.text = preset.time.toString()
 
-//            itemView.setOnClickListener {
-//                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
-//            }
             binding.presetNameHomeTV.setOnClickListener {
                 preset?.let { preset -> itemClickListener?.onItemClick(preset) }
             }
-
             binding.presetTimeTV.setOnClickListener {
                 preset?.let { preset -> itemClickListener?.onItemClick(preset) }
             }
-
             binding.presetButton.setOnClickListener {
                 preset?.let { preset -> itemClickListener?.onItemClick(preset) }
             }
@@ -90,28 +85,20 @@ class PresetRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 preset?.let { preset -> itemClickListener?.onItemClick(preset) }
             }
 
-//            itemView.setOnLongClickListener { view ->
-//                itemClickListener?.onItemLongClick(adapterPosition, view)
-//                true
-//            }
-
-            binding.roomImage.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.roomImage.setOnLongClickListener {
+                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
-
-            binding.presetTimeTV.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.presetTimeTV.setOnLongClickListener {
+                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
-
-            binding.presetNameHomeTV.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.presetNameHomeTV.setOnLongClickListener {
+                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
-
-            binding.presetButton.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.presetButton.setOnLongClickListener {
+                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
         }
@@ -130,20 +117,11 @@ class PresetRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             binding.addImage.setOnClickListener {
                 preset?.let { preset -> itemClickListener?.onItemClick(preset) }
             }
-
-            binding.addButton.setOnLongClickListener{view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
-                true
-            }
-            binding.addImage.setOnLongClickListener{view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
-                true
-            }
         }
     }
 
     interface PresetItemClickListener {
         fun onItemClick(preset: Preset)
-        fun onItemLongClick(position: Int, view: View): Boolean
+        fun onItemLongClick(preset: Preset):Boolean
     }
 }

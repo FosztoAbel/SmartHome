@@ -17,10 +17,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
-import hu.bme.aut.android.smarthome.adapter.AddNewDeviceScreenRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.adapter.RoomDevicesRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentRoomDevicesScreenBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
+import hu.bme.aut.android.smarthome.dialog.DeleteItemDialog
 import hu.bme.aut.android.smarthome.model.Device
 import hu.bme.aut.android.smarthome.model.Home
 import hu.bme.aut.android.smarthome.model.Room
@@ -33,19 +33,27 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
 
     private lateinit var binding: FragmentRoomDevicesScreenBinding
     private lateinit var roomDevicesRecyclerViewAdapter: RoomDevicesRecyclerViewAdapter
-    private lateinit var dialog: ChangeNameDialog
+    private lateinit var dialogRename: ChangeNameDialog
+    private lateinit var dialogDelete: DeleteItemDialog
     val firestore = Firebase.firestore
     private val args: RoomDevicesScreenFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dialog = ChangeNameDialog.newInstance(
+        dialogRename = ChangeNameDialog.newInstance(
             titleResId = R.string.change_name,
             inputResId = R.string.input,
             positiveButtonResId = R.string.change,
             negativeButtonResId = R.string.cancel
         )
+        dialogDelete = DeleteItemDialog.newInstance(
+            titleResId = R.string.delete_item,
+            questionResId = R.string.delete_question,
+            positiveButtonResId = R.string.delete,
+            negativeButtonResId = R.string.cancel
+        )
+
     }
 
     override fun onCreateView(
@@ -69,9 +77,9 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         }
 
         binding.roomNameDevicesTV.setOnLongClickListener {
-            dialog.show(childFragmentManager,ChangeNameDialog.TAG)
-            dialog.setOnPositiveClickListener {
-                val newName = dialog.getNewName()
+            dialogRename.show(childFragmentManager,ChangeNameDialog.TAG)
+            dialogRename.setOnPositiveClickListener {
+                val newName = dialogRename.getNewName()
                 val oldName = args.roomNameString
                 binding.roomNameDevicesTV.text = newName
 
@@ -168,8 +176,10 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         }
     }
 
-    override fun onItemLongClick(position: Int, view: View): Boolean {
-        TODO("Not yet implemented")
+    override fun onItemLongClick(device: Device): Boolean {
+        //TODO: Delete device from database
+        if(device.viewType == 1) dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
+        return true
     }
 }
 

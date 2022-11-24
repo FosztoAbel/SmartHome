@@ -10,15 +10,25 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.PresetRecyclerViewAdapter
 import hu.bme.aut.android.smarthome.databinding.FragmentPresetsMenuBinding
+import hu.bme.aut.android.smarthome.dialog.DeleteItemDialog
 import hu.bme.aut.android.smarthome.model.Preset
 
 class PresetsMenuFragment : Fragment(), PresetRecyclerViewAdapter.PresetItemClickListener {
 
     private lateinit var binding : FragmentPresetsMenuBinding
     private lateinit var presetRecyclerViewAdapter: PresetRecyclerViewAdapter
+    private lateinit var dialogDelete: DeleteItemDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        dialogDelete = DeleteItemDialog.newInstance(
+            titleResId = R.string.delete_item,
+            questionResId = R.string.delete_question,
+            positiveButtonResId = R.string.delete,
+            negativeButtonResId = R.string.cancel
+        )
     }
 
     override fun onCreateView(
@@ -60,7 +70,9 @@ class PresetsMenuFragment : Fragment(), PresetRecyclerViewAdapter.PresetItemClic
         }
     }
 
-    override fun onItemLongClick(position: Int, view: View): Boolean {
-        TODO("Not yet implemented")
+    override fun onItemLongClick(preset: Preset): Boolean {
+        //TODO: delete preset from database
+        if(preset.viewType == 1) dialogDelete.show(childFragmentManager, DeleteItemDialog.TAG)
+        return true
     }
 }

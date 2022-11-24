@@ -86,6 +86,10 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
                 roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice)
                 }
             }
+            binding.deviceButton.setOnLongClickListener {
+                roomDevice?.let { roomDevice -> itemClickListener?.onItemLongClick(roomDevice) }
+                true
+            }
             binding.deviceNameTV.text = roomDevice.name
 
         }
@@ -99,8 +103,11 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
         fun bind(position: Int) {
             val roomDevice = roomDeviceList[position]
             binding.deviceButton.setOnClickListener {
-                roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice)
-                }
+                roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice) }
+            }
+            binding.deviceButton.setOnLongClickListener {
+                roomDevice?.let { roomDevice -> itemClickListener?.onItemLongClick(roomDevice) }
+                true
             }
         }
     }
@@ -116,11 +123,12 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
             binding.addImage.setOnClickListener {
                 roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice) }
             }
+
         }
     }
 
     interface RoomDevicesItemClickListener {
         fun onItemClick(roomDevice: Device)
-        fun onItemLongClick(position: Int, view: View): Boolean
+        fun onItemLongClick(roomDevice: Device): Boolean
     }
 }

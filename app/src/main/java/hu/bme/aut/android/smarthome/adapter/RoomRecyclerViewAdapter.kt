@@ -94,7 +94,6 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             binding.roomHomeButton.setOnClickListener {
                 room?.let { room -> itemClickListener?.onItemClick(room) }
             }
-
             binding.deviceNumberHomeTV.setOnClickListener {
                 room?.let { room -> itemClickListener?.onItemClick(room) }
             }
@@ -102,28 +101,21 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 room?.let { room -> itemClickListener?.onItemClick(room) }
             }
 
-//            itemView.setOnLongClickListener { view ->
-//                itemClickListener?.onItemLongClick(adapterPosition, view)
-//                true
-//            }
 
-            binding.roomImage.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.roomImage.setOnLongClickListener {
+                room?.let { room -> itemClickListener?.onItemLongClick(room) }
                 true
             }
-
-            binding.roomHomeButton.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.roomHomeButton.setOnLongClickListener {
+                room?.let { room -> itemClickListener?.onItemLongClick(room) }
                 true
             }
-
-            binding.roomNameHomeTV.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.roomNameHomeTV.setOnLongClickListener {
+                room?.let { room -> itemClickListener?.onItemLongClick(room) }
                 true
             }
-
-            binding.deviceNumberHomeTV.setOnLongClickListener { view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
+            binding.deviceNumberHomeTV.setOnLongClickListener {
+                room?.let { room -> itemClickListener?.onItemLongClick(room) }
                 true
             }
         }
@@ -136,34 +128,17 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
             val room = roomList[position]
 
-//            itemView.setOnClickListener {
-//                room?.let { room -> itemClickListener?.onItemClick(room) }
-//            }
             binding.addButton.setOnClickListener {
                 room?.let { room -> itemClickListener?.onItemClick(room) }
             }
             binding.addImage.setOnClickListener {
                 room?.let { room -> itemClickListener?.onItemClick(room) }
             }
-
-//            itemView.setOnLongClickListener { view ->
-//                itemClickListener?.onItemLongClick(adapterPosition, view)
-//                true
-//            }
-
-            binding.addButton.setOnLongClickListener{view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
-                true
-            }
-            binding.addImage.setOnLongClickListener{view ->
-                itemClickListener?.onItemLongClick(adapterPosition, view)
-                true
-            }
         }
     }
 
     interface RoomItemClickListener {
         fun onItemClick(room: Room)
-        fun onItemLongClick(position: Int, view: View): Boolean
+        fun onItemLongClick(room: Room): Boolean
     }
 }
