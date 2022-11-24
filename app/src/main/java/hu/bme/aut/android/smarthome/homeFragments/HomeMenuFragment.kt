@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
@@ -142,9 +143,40 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
         }
     }
 
-    override fun onItemLongClick(room: Room): Boolean {
-        //TODO: Delete room from database
-        if(room.viewType == 1) dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
+    override fun onItemLongClick(position: Int, room: Room): Boolean {
+        if(room.viewType == 1){
+            val user = FirebaseAuth.getInstance().currentUser
+            dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
+            dialogDelete.setOnPositiveClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val homes = firestore.collection("homes")
+                        .get()
+                        .await()
+                        .toObjects<Home>()
+                    for (home in homes) {
+                        for (iterator in home.joinedUsers!!) {
+                            if (iterator.equals(user?.uid)) {
+                                val rooms =
+                                    firestore.collection("homes").document(home.id.toString()).collection("rooms")
+                                        .get()
+                                        .await()
+                                        .toObjects<Room>()
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    for (iteratorRoom in rooms) {
+                                        if(iteratorRoom.name == room.name){
+                                            firestore.collection("homes").document(home.id.toString())
+                                                .collection("rooms").document(iteratorRoom.id.toString()).delete()
+                                            roomRecyclerViewAdapter.deleteRow(position)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Snackbar.make(binding.root, "Successfully deleted a room!", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
         return true
     }
 

@@ -66,6 +66,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     fun deleteRow(position: Int) {
+
         roomDeviceList.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -87,7 +88,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
             binding.deviceButton.setOnLongClickListener {
-                roomDevice?.let { roomDevice -> itemClickListener?.onItemLongClick(roomDevice) }
+                roomDevice?.let { roomDevice -> itemClickListener?.onItemLongClick(adapterPosition, roomDevice) }
                 true
             }
             binding.deviceNameTV.text = roomDevice.name
@@ -106,7 +107,7 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
                 roomDevice?.let { roomDevice -> itemClickListener?.onItemClick(roomDevice) }
             }
             binding.deviceButton.setOnLongClickListener {
-                roomDevice?.let { roomDevice -> itemClickListener?.onItemLongClick(roomDevice) }
+                roomDevice?.let { roomDevice -> itemClickListener?.onItemLongClick(adapterPosition, roomDevice) }
                 true
             }
         }
@@ -129,6 +130,6 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
     interface RoomDevicesItemClickListener {
         fun onItemClick(roomDevice: Device)
-        fun onItemLongClick(roomDevice: Device): Boolean
+        fun onItemLongClick(position: Int, roomDevice: Device): Boolean
     }
 }

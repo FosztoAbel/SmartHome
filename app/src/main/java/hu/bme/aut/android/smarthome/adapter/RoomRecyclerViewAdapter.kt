@@ -103,19 +103,19 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
 
             binding.roomImage.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(room) }
+                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
             binding.roomHomeButton.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(room) }
+                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
             binding.roomNameHomeTV.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(room) }
+                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
             binding.deviceNumberHomeTV.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(room) }
+                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
         }
@@ -139,6 +139,6 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     interface RoomItemClickListener {
         fun onItemClick(room: Room)
-        fun onItemLongClick(room: Room): Boolean
+        fun onItemLongClick(position: Int, room: Room): Boolean
     }
 }

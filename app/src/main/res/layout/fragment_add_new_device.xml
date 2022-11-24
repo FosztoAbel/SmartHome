@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newDeviceNameTV"
-        tools:ignore="TextViewEdits" />
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/availableDevicesTV"
@@ -80,7 +80,6 @@
         android:layout_height="300dp"
         android:layout_marginTop="0dp"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSaveDevice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/availableDevicesTV" />
@@ -90,7 +89,7 @@
         android:id="@+id/buttonSaveDevice"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/custom_register_button"
         android:fontFamily="@font/dosis_medium"
         android:text="@string/save_device"

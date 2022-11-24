@@ -6,7 +6,7 @@ data class Room(
     val id: Int,
     val name: String,
     val type: String,
-    val deviceNumber: Int,
+    var deviceNumber: Int,
 ){
     constructor() : this(1,1,
         "", "default", 0

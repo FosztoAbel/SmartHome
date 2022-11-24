@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
@@ -176,9 +177,56 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         }
     }
 
-    override fun onItemLongClick(device: Device): Boolean {
-        //TODO: Delete device from database
-        if(device.viewType == 1) dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
+    override fun onItemLongClick(position: Int, device: Device): Boolean {
+        if(device.viewType == 1) {
+            val user = FirebaseAuth.getInstance().currentUser
+            dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
+            dialogDelete.setOnPositiveClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val homes = firestore.collection("homes")
+                        .get()
+                        .await()
+                        .toObjects<Home>()
+                    for (home in homes) {
+                        for (iterator in home.joinedUsers!!) {
+                            if (iterator.equals(user?.uid)) {
+                                val rooms =
+                                    firestore.collection("homes").document(home.id.toString()).collection("rooms")
+                                        .get()
+                                        .await()
+                                        .toObjects<Room>()
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    for (iteratorRoom in rooms) {
+                                        if(iteratorRoom.name == args.roomNameString){
+                                            val devices = firestore.collection("homes").document(home.id.toString())
+                                                .collection("rooms").document(iteratorRoom.id.toString())
+                                                .collection("devices")
+                                                .get()
+                                                .await()
+                                                .toObjects<Device>()
+                                            CoroutineScope(Dispatchers.Main).launch {
+                                                for(iteratorDevice in devices){
+                                                    if(iteratorDevice.name == device.name){
+                                                        firestore.collection("homes").document(home.id.toString())
+                                                            .collection("rooms").document(iteratorRoom.id.toString()).update("deviceNumber",iteratorRoom.deviceNumber - 1)
+
+                                                        firestore.collection("homes").document(home.id.toString())
+                                                            .collection("rooms").document(iteratorRoom.id.toString())
+                                                            .collection("devices").document(device.id.toString()).delete()
+                                                        roomDevicesRecyclerViewAdapter.deleteRow(position)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Snackbar.make(binding.root, "Successfully deleted a device!", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
         return true
     }
 }
