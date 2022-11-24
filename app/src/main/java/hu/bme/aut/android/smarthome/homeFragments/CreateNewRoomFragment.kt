@@ -40,8 +40,7 @@ class CreateNewRoomFragment : Fragment() {
             val roomType = binding.roomTypeInput.text.toString()
             val deviceNumber = 0
             val viewType = 1
-            val id = 1
-            // get last id from database and +1 will be the new id
+            val id = Random.nextInt()
             val newRoom = Room(viewType,id,roomName,roomType,deviceNumber)
 
             if(checkFields())
@@ -53,7 +52,7 @@ class CreateNewRoomFragment : Fragment() {
                             val currentDocument = document.toObject<Home>()
                             for(iterator in currentDocument.joinedUsers!!){
                                 if(iterator.equals(user?.uid)){
-                                    val dbRef = firestore.collection("homes").document(currentDocument.name).collection("rooms").document(roomName)
+                                    val dbRef = firestore.collection("homes").document(currentDocument.id.toString()).collection("rooms").document(newRoom.id.toString())
                                     dbRef.set(newRoom)
                                         .addOnSuccessListener {
                                             findNavController().navigate(R.id.action_createNewRoomFragment_to_swipeMenuFragment)

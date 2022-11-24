@@ -26,16 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
 
-    <ImageView
-        android:id="@+id/editImage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/climateSettingsTV"
-        app:layout_constraintStart_toEndOf="@+id/climateSettingsTV"
-        app:layout_constraintTop_toTopOf="@+id/climateSettingsTV" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSaveSettings"
         android:layout_width="250dp"

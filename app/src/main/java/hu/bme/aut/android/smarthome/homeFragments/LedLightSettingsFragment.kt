@@ -8,14 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentLedLightSettingsBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
+import hu.bme.aut.android.smarthome.model.Device
+import hu.bme.aut.android.smarthome.model.Home
+import hu.bme.aut.android.smarthome.model.Room
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class LedLightSettingsFragment : Fragment() {
 
     private lateinit var binding : FragmentLedLightSettingsBinding
     private lateinit var dialog : ChangeNameDialog
+    val firestore = Firebase.firestore
     private val args: LedLightSettingsFragmentArgs by navArgs()
 
 
@@ -23,8 +35,7 @@ class LedLightSettingsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         dialog = ChangeNameDialog.newInstance(
             titleResId = R.string.change_name,
-            description = getString(R.string.new_name),
-            inputResId = R.drawable.ic_home,   //not sure why ? later delete
+            inputResId = R.string.input,
             positiveButtonResId = R.string.change,
             negativeButtonResId = R.string.cancel
         )
@@ -42,7 +53,9 @@ class LedLightSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lightSettingsTV.text = args.deviceNameString + " settings"
+        val user = FirebaseAuth.getInstance().currentUser
+
+        binding.lightSettingsTV.text = args.deviceNameString
 
         binding.buttonSaveSettings.setOnClickListener {
             val action = LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
@@ -52,9 +65,51 @@ class LedLightSettingsFragment : Fragment() {
             val action = LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
             findNavController().navigate(action)
         }
-
-        binding.editImage.setOnClickListener {
+        binding.lightSettingsTV.setOnLongClickListener {
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)
+            dialog.setOnPositiveClickListener {
+                val newDeviceName = dialog.getNewName()
+                val roomName = args.roomNameString
+                val deviceOldName = args.deviceNameString
+
+                binding.lightSettingsTV.text = newDeviceName
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val homes = firestore.collection("homes")
+                        .get()
+                        .await()
+                        .toObjects<Home>()
+                    for (home in homes) {
+                        for (iterator in home.joinedUsers!!) {
+                            if (iterator.equals(user?.uid)) {
+                                val rooms =
+                                    firestore.collection("homes").document(home.id.toString()).collection("rooms")
+                                        .get()
+                                        .await()
+                                        .toObjects<Room>()
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    for (room in rooms) {
+                                        if(room.name == roomName){
+                                            val devices = firestore.collection("homes").document(home.id.toString()).collection("rooms").document(room.id.toString()).collection("devices")
+                                                .get()
+                                                .await()
+                                                .toObjects<Device>()
+                                            for(device in devices){
+                                                if(device.name == deviceOldName){
+                                                    firestore.collection("homes").document(home.id.toString())
+                                                        .collection("rooms").document(room.id.toString())
+                                                        .collection("devices").document(device.id.toString()).update("name",newDeviceName)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            true
         }
     }
 }

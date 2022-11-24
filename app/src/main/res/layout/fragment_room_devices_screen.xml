@@ -46,17 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
 
-
-    <ImageView
-        android:id="@+id/editImage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_edit"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/roomNameDevicesTV"
-        app:layout_constraintStart_toEndOf="@+id/roomNameDevicesTV"
-        app:layout_constraintTop_toTopOf="@+id/roomNameDevicesTV" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/room_devices"
         android:layout_width="match_parent"

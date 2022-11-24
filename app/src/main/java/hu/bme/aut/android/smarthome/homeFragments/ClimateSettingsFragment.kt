@@ -22,8 +22,7 @@ class ClimateSettingsFragment : Fragment() {
         super.onCreate(savedInstanceState)
              dialog = ChangeNameDialog.newInstance(
             titleResId = R.string.change_name,
-            description = getString(R.string.new_name),
-            inputResId = R.drawable.ic_home,   //not sure why ? later delete
+            inputResId = R.string.input,
             positiveButtonResId = R.string.change,
             negativeButtonResId = R.string.cancel
         )
@@ -41,7 +40,7 @@ class ClimateSettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.climateSettingsTV.text = args.deviceNameString +" settings"
+        binding.climateSettingsTV.text = args.deviceNameString
 
         binding.buttonSaveSettings.setOnClickListener {
             val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
@@ -51,8 +50,9 @@ class ClimateSettingsFragment : Fragment() {
             val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
             findNavController().navigate(action)
         }
-        binding.editImage.setOnClickListener {
+        binding.climateSettingsTV.setOnLongClickListener {
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)
+            true
         }
 
     }

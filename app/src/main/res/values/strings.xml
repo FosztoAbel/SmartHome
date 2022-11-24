@@ -80,5 +80,8 @@
     <string name="current_home">Current home: You dont have a home yet!</string>
     <string name="create_home_disclaimer">If you create a new home you will be removed from your previous home!</string>
     <string name="join_home_disclaimer">If you join an existing home you will be removed from your previous home!</string>
+    <string name="input">Input</string>
+    <string name="rename_home">Rename home</string>
+    <string name="rename_home_disclaimer">If you rename your home, it will be renamed for every user</string>
 
 </resources>

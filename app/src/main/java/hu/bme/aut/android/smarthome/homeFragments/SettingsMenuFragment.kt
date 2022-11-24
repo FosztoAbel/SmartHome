@@ -36,5 +36,8 @@ class SettingsMenuFragment : Fragment() {
         binding.settingsJoinHomeBackground.setOnClickListener {
             findNavController().navigate(R.id.action_swipeMenuFragment_to_joinHomeFragment)
         }
+        binding.settingsRenameHomeBackground.setOnClickListener {
+            findNavController().navigate(R.id.action_swipeMenuFragment_to_changeHomeNameFragment)
+        }
     }
 }

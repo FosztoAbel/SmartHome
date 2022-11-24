@@ -97,7 +97,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/settingsJoinHomeBackground"
-        app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
+        app:layout_constraintStart_toEndOf="@+id/joinHomeIcon"
         app:layout_constraintTop_toTopOf="@+id/settingsJoinHomeBackground" />
 
     <ImageView
@@ -107,7 +107,7 @@
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsNotificationsBackground"
+        app:layout_constraintTop_toBottomOf="@+id/settingsRenameHomeBackground"
         app:srcCompat="@drawable/custom_room_image" />
 
     <ImageView
@@ -131,7 +131,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/settingsCreateHomeBackground"
-        app:layout_constraintStart_toEndOf="@+id/notificationsIcon"
+        app:layout_constraintStart_toEndOf="@+id/createHomeIcon"
         app:layout_constraintTop_toTopOf="@+id/settingsCreateHomeBackground" />
 
     <ImageView
@@ -153,5 +153,39 @@
         app:layout_constraintBottom_toBottomOf="@+id/settingsCreateHomeBackground"
         app:layout_constraintStart_toStartOf="@+id/settingsCreateHomeBackground"
         app:layout_constraintTop_toTopOf="@+id/settingsCreateHomeBackground" />
+
+    <TextView
+        android:id="@+id/renameHomeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/rename_home"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsRenameHomeBackground"
+        app:layout_constraintStart_toEndOf="@+id/renameHomeIcon"
+        app:layout_constraintTop_toTopOf="@+id/settingsRenameHomeBackground" />
+
+    <ImageView
+        android:id="@+id/settingsRenameHomeBackground"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsNotificationsBackground"
+        app:srcCompat="@drawable/custom_room_image" />
+
+    <ImageView
+        android:id="@+id/renameHomeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsRenameHomeBackground"
+        app:layout_constraintStart_toStartOf="@+id/settingsRenameHomeBackground"
+        app:layout_constraintTop_toTopOf="@+id/settingsRenameHomeBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,16 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
 
-    <ImageView
-        android:id="@+id/editImage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/lightSettingsTV"
-        app:layout_constraintStart_toEndOf="@+id/lightSettingsTV"
-        app:layout_constraintTop_toTopOf="@+id/lightSettingsTV" />
-
     <com.panshen.gridcolorpicker.GridColorPicker
         android:id="@+id/colorPicker"
         android:layout_width="300dp"

@@ -16,6 +16,7 @@ import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentCreateHomeBinding
 import hu.bme.aut.android.smarthome.model.Home
 import hu.bme.aut.android.smarthome.model.Room
+import kotlin.random.Random
 
 
 class CreateHomeFragment : Fragment() {
@@ -53,7 +54,7 @@ class CreateHomeFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         val newHomePassword = binding.creatHomePasswordInput.text.toString()
         val newHomeName = binding.homeNameInput.text.toString()
-         val users: MutableList<String?> = mutableListOf()
+        val users: MutableList<String?> = mutableListOf()
 
         if(chechFields()) {
             firestore.collection("homes")
@@ -71,9 +72,8 @@ class CreateHomeFragment : Fragment() {
                         }
                     }
                         users.add(user?.uid)
-                        val newHome = Home(1, newHomePassword, newHomeName, users)
-                        val dbRef = firestore.collection("homes").document(newHomeName)
-
+                        val newHome = Home(Random.nextInt(), newHomePassword, newHomeName, users)
+                        val dbRef = firestore.collection("homes").document(newHome.id.toString())
                         dbRef.set(newHome)
                             .addOnSuccessListener {
                                 findNavController().navigate(R.id.action_createHomeFragment_to_swipeMenuFragment)

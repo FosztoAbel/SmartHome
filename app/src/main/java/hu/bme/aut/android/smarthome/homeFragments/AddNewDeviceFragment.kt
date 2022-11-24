@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.adapter.AddNewDeviceScreenRecyclerViewAdapter
@@ -20,6 +21,12 @@ import hu.bme.aut.android.smarthome.databinding.FragmentAddNewDeviceBinding
 import hu.bme.aut.android.smarthome.model.AvailableDevice
 import hu.bme.aut.android.smarthome.model.Device
 import hu.bme.aut.android.smarthome.model.Home
+import hu.bme.aut.android.smarthome.model.Room
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlin.random.Random
 
 class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.AddNewDeviceScreenItemClickListener {
 
@@ -54,28 +61,45 @@ class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.A
 
             val roomName = args.roomNameString.toString()
             val deviceName = binding.deviceNameInput.text.toString()
-            val newDevice = Device(1,1,deviceName,false)
+            val viewType = 1
+            val id = Random.nextInt()
+            val state = false
+            val newDevice = Device(viewType,id,deviceName,state)
 
             if(checkFields()){
-                firestore.collection("homes")
-                    .get()
-                    .addOnSuccessListener { result ->
-                        for(document in result){
-                            val currentDocument = document.toObject<Home>()
-                            for(iterator in currentDocument.joinedUsers!!){
-                                if(iterator.equals(user?.uid)){
-                                    val dbRef = firestore.collection("homes").document(currentDocument.name)
-                                        .collection("rooms").document(roomName)
-                                        .collection("devices").document(deviceName)
-                                    dbRef.set(newDevice)
-                                        .addOnSuccessListener {
-                                            val action = AddNewDeviceFragmentDirections.actionAddNewDeviceFragmentToRoomDevicesScreenFragment(args.roomNameString.toString())
-                                            findNavController().navigate(action)
+                CoroutineScope(Dispatchers.IO).launch {
+                    val homes = firestore.collection("homes")
+                        .get()
+                        .await()
+                        .toObjects<Home>()
+                    for (home in homes) {
+                        for (iterator in home.joinedUsers!!) {
+                            if (iterator.equals(user?.uid)) {
+                                val rooms =
+                                    firestore.collection("homes").document(home.id.toString()).collection("rooms")
+                                        .get()
+                                        .await()
+                                        .toObjects<Room>()
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    for (room in rooms) {
+                                        if(room.name == roomName){
+                                            val dbRef = firestore.collection("homes").document(home.id.toString())
+                                                .collection("rooms").document(room.id.toString())
+                                                .collection("devices").document(newDevice.id.toString())
+                                            dbRef.set(newDevice)
+                                                .addOnSuccessListener {
+                                                    val newDeviceNumber = room.deviceNumber + 1
+                                                    firestore.collection("homes").document(home.id.toString()).collection("rooms").document(room.id.toString()).update("deviceNumber", newDeviceNumber)
+                                                    val action = AddNewDeviceFragmentDirections.actionAddNewDeviceFragmentToRoomDevicesScreenFragment(args.roomNameString.toString())
+                                                    findNavController().navigate(action)
+                                                }
                                         }
+                                    }
                                 }
                             }
                         }
                     }
+                }
             }
             else{
                 Snackbar.make(binding.root,"Please fill out all the fields!", Snackbar.LENGTH_LONG).show()

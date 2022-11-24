@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_swipeMenuFragment_to_joinHomeFragment"
             app:destination="@id/joinHomeFragment" />
+        <action
+            android:id="@+id/action_swipeMenuFragment_to_changeHomeNameFragment"
+            app:destination="@id/changeHomeNameFragment" />
 
     </fragment>
     <fragment
@@ -141,6 +144,14 @@
         android:label="JoinHomeFragment" >
         <action
             android:id="@+id/action_joinHomeFragment_to_swipeMenuFragment"
+            app:destination="@id/swipeMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeHomeNameFragment"
+        android:name="hu.bme.aut.android.smarthome.homeFragments.ChangeHomeNameFragment"
+        android:label="ChangeHomeNameFragment" >
+        <action
+            android:id="@+id/action_changeHomeNameFragment_to_swipeMenuFragment"
             app:destination="@id/swipeMenuFragment" />
     </fragment>
 </navigation>

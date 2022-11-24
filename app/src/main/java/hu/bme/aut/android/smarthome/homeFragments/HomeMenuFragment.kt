@@ -104,7 +104,7 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
                 for (iterator in home.joinedUsers!!) {
                     if (iterator.equals(user?.uid)) {
                         val rooms =
-                            firestore.collection("homes").document(home.name).collection("rooms")
+                            firestore.collection("homes").document(home.id.toString()).collection("rooms")
                                 .get()
                                 .await()
                                 .toObjects<Room>()

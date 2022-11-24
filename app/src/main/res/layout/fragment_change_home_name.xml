@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuActivity">
+
+    <ImageView
+        android:id="@+id/arrowImage"
+        android:layout_width="95dp"
+        android:layout_height="75dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/renameHomeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/dosis_bold"
+        android:text="@string/rename_home"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrowImage" />
+
+    <TextView
+        android:id="@+id/renameHomeDisclaimerTV"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_semibold"
+        android:text="@string/rename_home_disclaimer"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/renameHomeTV" />
+
+    <TextView
+        android:id="@+id/renameHomeNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/new_name"
+        android:textSize="15sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="35dp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/renameHomeDisclaimerTV" />
+
+    <EditText
+        android:id="@+id/renameHomeNameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_input_field"
+        android:ems="16"
+        android:fontFamily="@font/dosis_medium"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/renameHomeNameTV" />
+
+    <TextView
+        android:id="@+id/renameHomePasswordTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/dosis_regular"
+        android:text="@string/password"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineLoginPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/renameHomeNameInput" />
+
+    <EditText
+        android:id="@+id/renameHomePasswordInput"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_input_field"
+        android:ems="16"
+        android:fontFamily="@font/dosis_medium"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/renameHomePasswordTV" />
+
+    <ImageView
+        android:id="@+id/passwordRenameHomeToggleVisibility"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="@+id/renameHomePasswordInput"
+        app:layout_constraintEnd_toEndOf="@+id/renameHomePasswordInput"
+        app:layout_constraintTop_toTopOf="@+id/renameHomePasswordInput" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuidelineLoginPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="87dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonRenameHome"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/custom_register_button"
+        android:fontFamily="@font/dosis_medium"
+        android:text="@string/rename_home"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

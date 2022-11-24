@@ -2,6 +2,7 @@ package hu.bme.aut.android.smarthome.homeFragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,8 +42,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
 
         dialog = ChangeNameDialog.newInstance(
             titleResId = R.string.change_name,
-            description = getString(R.string.new_name),
-            inputResId = R.drawable.ic_home,   //not sure why ? later delete
+            inputResId = R.string.input,
             positiveButtonResId = R.string.change,
             negativeButtonResId = R.string.cancel
         )
@@ -68,10 +68,40 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
             findNavController().navigate(R.id.action_roomDevicesScreenFragment_to_swipeMenuFragment)
         }
 
-        binding.editImage.setOnClickListener {
+        binding.roomNameDevicesTV.setOnLongClickListener {
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)
-        }
+            dialog.setOnPositiveClickListener {
+                val newName = dialog.getNewName()
+                val oldName = args.roomNameString
+                binding.roomNameDevicesTV.text = newName
 
+                CoroutineScope(Dispatchers.IO).launch {
+                    val homes = firestore.collection("homes")
+                        .get()
+                        .await()
+                        .toObjects<Home>()
+                    for (home in homes) {
+                        for (iterator in home.joinedUsers!!) {
+                            if (iterator.equals(user?.uid)) {
+                                val rooms =
+                                    firestore.collection("homes").document(home.id.toString()).collection("rooms")
+                                        .get()
+                                        .await()
+                                        .toObjects<Room>()
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    for (room in rooms) {
+                                        if(room.name == oldName){
+                                            firestore.collection("homes").document(home.id.toString()).collection("rooms").document(room.id.toString()).update("name",newName)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            true
+        }
         setupRecyclerView(user)
     }
 
@@ -88,19 +118,30 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
             for (home in homes) {
                 for (iterator in home.joinedUsers!!) {
                     if (iterator.equals(user?.uid)) {
-                        val devices = firestore.collection("homes").document(home.name)
-                                .collection("rooms")
-                                .document(args.roomNameString.toString())
-                                .collection("devices")
+                        val rooms =
+                            firestore.collection("homes").document(home.id.toString()).collection("rooms")
                                 .get()
                                 .await()
-                                .toObjects<Device>()
+                                .toObjects<Room>()
                         CoroutineScope(Dispatchers.Main).launch {
-                           for(device in devices){
-                               liveData.add(device)
-                           }
-                            liveData.add(Device(2, 0, "Add button", false))
-                            roomDevicesRecyclerViewAdapter.addAll(liveData)
+                            for (room in rooms) {
+                                if(room.name == args.roomNameString.toString()){
+                                    val devices = firestore.collection("homes").document(home.id.toString())
+                                        .collection("rooms")
+                                        .document(room.id.toString())
+                                        .collection("devices")
+                                        .get()
+                                        .await()
+                                        .toObjects<Device>()
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        for(device in devices){
+                                            liveData.add(device)
+                                        }
+                                        liveData.add(Device(2, 0, "Add button", false))
+                                        roomDevicesRecyclerViewAdapter.addAll(liveData)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -108,7 +149,6 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         }
 
         roomDevicesRecyclerViewAdapter.itemClickListener = this
-        roomDevicesRecyclerViewAdapter.addAll(liveData)
         binding.root.findViewById<RecyclerView>(R.id.room_devices).adapter =
             roomDevicesRecyclerViewAdapter
     }
