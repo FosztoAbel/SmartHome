@@ -15,7 +15,7 @@ import hu.bme.aut.android.smarthome.databinding.FragmentSwipeMenuBinding
 class SwipeMenuFragment : Fragment() {
 
     private lateinit var binding : FragmentSwipeMenuBinding
-    private val viewPager=binding.vpMenu
+    private lateinit var viewPager : ViewPager2
     private val mOnNavigationItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
         when (item.itemId) {
             R.id.homeMenuFragment -> {
@@ -47,6 +47,7 @@ class SwipeMenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.vpMenu.adapter = SwipeMenuPagerAdapter(this)
 
+        viewPager = binding.vpMenu
         val bottomNavigationView=binding.bottomNavigation
         viewPager.adapter = SwipeMenuPagerAdapter(this)
         bottomNavigationView.setOnItemSelectedListener(mOnNavigationItemSelectedListener)
