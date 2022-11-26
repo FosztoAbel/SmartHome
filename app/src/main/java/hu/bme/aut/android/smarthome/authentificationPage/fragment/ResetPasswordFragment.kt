@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import hu.bme.aut.android.smarthome.R
 import hu.bme.aut.android.smarthome.databinding.FragmentResetPasswordBinding
 
-
 class ResetPasswordFragment : Fragment() {
 
     private lateinit var binding : FragmentResetPasswordBinding

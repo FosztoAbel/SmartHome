@@ -64,7 +64,6 @@ class AddNewDeviceScreenRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.
     }
 
     inner class ViewHolderAvailableLedStrip(val binding: RowAvailableLedBinding) : RecyclerView.ViewHolder(binding.root) {
-        var availableDevice: AvailableDevice? = null
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
@@ -82,7 +81,6 @@ class AddNewDeviceScreenRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.
 
     //Here for future updates
     inner class ViewHolderAvailableClimate(val binding: RowAvailableClimateBinding) : RecyclerView.ViewHolder(binding.root) {
-        var availableDevice: AvailableDevice? = null
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {

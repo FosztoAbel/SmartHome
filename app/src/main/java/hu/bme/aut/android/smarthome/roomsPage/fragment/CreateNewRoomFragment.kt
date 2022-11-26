@@ -40,7 +40,8 @@ class CreateNewRoomFragment : Fragment() {
             val roomType = binding.roomTypeInput.text.toString()
             val deviceNumber = 0
             val viewType = 1
-            val id = Random.nextInt()
+            var id = Random.nextInt()
+            if(id < 0) id *= (-1)
             val newRoom = Room(viewType,id,roomName,roomType,deviceNumber)
 
             if(checkFields())

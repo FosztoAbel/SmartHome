@@ -41,7 +41,7 @@ class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.A
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddNewDeviceBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -60,7 +60,8 @@ class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.A
             val roomName = args.roomNameString.toString()
             val deviceName = binding.deviceNameInput.text.toString()
             val viewType = 1
-            val id = Random.nextInt()
+            var id = Random.nextInt()
+            if(id < 0) id *= (-1)
             val state = false
             val newDevice = Device(viewType,id,deviceName,state)
 
@@ -113,11 +114,11 @@ class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.A
     private fun setupRecyclerView() {
         //TODO: get available items from network
         val demoData = mutableListOf(
-            AvailableDevice(1,1,"LEDstrip",false),
-            AvailableDevice(1,2,"LEDstrip",false),
-            AvailableDevice(1,3,"LEDstrip",false),
-            AvailableDevice(1,4,"LEDstrip",false),
-            AvailableDevice(1,5,"LEDstrip",false)
+            AvailableDevice(1,1,"LED strip",false),
+            AvailableDevice(1,2,"LED strip",false),
+            AvailableDevice(1,3,"LED strip",false),
+            AvailableDevice(1,4,"LED strip",false),
+            AvailableDevice(1,5,"LED strip",false)
           //  AvailableDevice(2,1,"SmartBulb", 0)
         )
 
@@ -130,7 +131,7 @@ class AddNewDeviceFragment : Fragment(), AddNewDeviceScreenRecyclerViewAdapter.A
     }
 
     override fun onItemClick(availableDevice: AvailableDevice) {
-
+        TODO("Not yet implemented")
     }
 
     override fun onItemLongClick(position: Int, view: View): Boolean {

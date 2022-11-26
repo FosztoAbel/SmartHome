@@ -27,7 +27,7 @@ class LedLightSettingsFragment : Fragment() {
 
     private lateinit var binding : FragmentLedLightSettingsBinding
     private lateinit var dialog : ChangeNameDialog
-    val firestore = Firebase.firestore
+    private val firestore = Firebase.firestore
     private val args: LedLightSettingsFragmentArgs by navArgs()
 
 
@@ -44,7 +44,7 @@ class LedLightSettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLedLightSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }

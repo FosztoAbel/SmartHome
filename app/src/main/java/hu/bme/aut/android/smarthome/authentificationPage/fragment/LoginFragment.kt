@@ -49,14 +49,14 @@ class LoginFragment : AbstractLoginAndRegister() {
     private fun togglePasswordVisibility() {
         var toggleVisibility = false
         binding.passwordLoginToggleVisibility.setOnClickListener {
-            if (!toggleVisibility) {
+            toggleVisibility = if (!toggleVisibility) {
                 binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.passwordInput.setTransformationMethod(null)
-                toggleVisibility = true
+                binding.passwordInput.transformationMethod = null
+                true
             } else {
                 binding.passwordLoginToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.passwordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
+                binding.passwordInput.transformationMethod = PasswordTransformationMethod()
+                false
             }
         }
     }

@@ -23,14 +23,10 @@ class CreateHomeFragment : Fragment() {
     private lateinit var binding: FragmentCreateHomeBinding
     private val firestore = Firebase.firestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCreateHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,8 +50,11 @@ class CreateHomeFragment : Fragment() {
         val newHomePassword = binding.creatHomePasswordInput.text.toString()
         val newHomeName = binding.homeNameInput.text.toString()
         val users: MutableList<String?> = mutableListOf()
+        var id = Random.nextInt()
+        if(id < 0) id *= (-1)
+        val newHome = Home(id, newHomePassword, newHomeName, users)
 
-        if(chechFields()) {
+        if(checkFields()) {
             firestore.collection("homes")
                 .get()
                 .addOnSuccessListener { result ->
@@ -71,7 +70,6 @@ class CreateHomeFragment : Fragment() {
                         }
                     }
                         users.add(user?.uid)
-                        val newHome = Home(Random.nextInt(), newHomePassword, newHomeName, users)
                         val dbRef = firestore.collection("homes").document(newHome.id.toString())
                         dbRef.set(newHome)
                             .addOnSuccessListener {
@@ -87,21 +85,21 @@ class CreateHomeFragment : Fragment() {
         }
     }
 
-    private fun chechFields(): Boolean{
+    private fun checkFields(): Boolean{
         return !(binding.homeNameInput.text.isEmpty() || binding.creatHomePasswordInput.text.isEmpty())
     }
 
     private fun togglePasswordVisibility() {
         var toggleVisibility = false
         binding.passwordCreateHomeToggleVisibility.setOnClickListener {
-            if (!toggleVisibility) {
+            toggleVisibility = if (!toggleVisibility) {
                 binding.passwordCreateHomeToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.creatHomePasswordInput.setTransformationMethod(null)
-                toggleVisibility = true
+                binding.creatHomePasswordInput.transformationMethod = null
+                true
             } else {
                 binding.passwordCreateHomeToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.creatHomePasswordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
+                binding.creatHomePasswordInput.transformationMethod = PasswordTransformationMethod()
+                false
             }
         }
     }

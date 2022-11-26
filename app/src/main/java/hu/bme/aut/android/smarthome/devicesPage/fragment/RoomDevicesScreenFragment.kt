@@ -35,7 +35,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
     private lateinit var roomDevicesRecyclerViewAdapter: RoomDevicesRecyclerViewAdapter
     private lateinit var dialogRename: ChangeNameDialog
     private lateinit var dialogDelete: DeleteItemDialog
-    val firestore = Firebase.firestore
+    private val firestore = Firebase.firestore
     private val args: RoomDevicesScreenFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRoomDevicesScreenBinding.inflate(inflater, container, false)
         return binding.root
     }

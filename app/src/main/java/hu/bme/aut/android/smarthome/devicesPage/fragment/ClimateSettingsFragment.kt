@@ -13,10 +13,10 @@ import hu.bme.aut.android.smarthome.databinding.FragmentClimateSettingsBinding
 import hu.bme.aut.android.smarthome.dialog.ChangeNameDialog
 
 class ClimateSettingsFragment : Fragment() {
+
     private lateinit var binding : FragmentClimateSettingsBinding
     private lateinit var dialog: ChangeNameDialog
     private val args: ClimateSettingsFragmentArgs by navArgs()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class ClimateSettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentClimateSettingsBinding.inflate(inflater,container, false)
         return binding.root
     }
@@ -42,18 +42,18 @@ class ClimateSettingsFragment : Fragment() {
 
         binding.climateSettingsTV.text = args.deviceNameString
 
-        binding.buttonSaveSettings.setOnClickListener {
-            val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
-            findNavController().navigate(action)
-        }
-        binding.arrowImage.setOnClickListener {
-            val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
-            findNavController().navigate(action)
-        }
         binding.climateSettingsTV.setOnLongClickListener {
             dialog.show(childFragmentManager,ChangeNameDialog.TAG)
             true
         }
 
+        binding.arrowImage.setOnClickListener {
+            val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+            findNavController().navigate(action)
+        }
+        binding.buttonSaveSettings.setOnClickListener {
+            val action = ClimateSettingsFragmentDirections.actionClimateSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+            findNavController().navigate(action)
+        }
     }
 }
