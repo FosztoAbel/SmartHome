@@ -24,7 +24,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".authentificationPage.activity.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait">

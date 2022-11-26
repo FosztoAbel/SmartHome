@@ -6,7 +6,7 @@
     app:startDestination="@id/swipeMenuFragment">
     <fragment
         android:id="@+id/swipeMenuFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.SwipeMenuFragment"
+        android:name="hu.bme.aut.android.smarthome.roomsPage.SwipeMenuFragment"
         android:label="fragment_swipe_menu"
         tools:layout="@layout/fragment_swipe_menu" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.ProfileFragment"
+        android:name="hu.bme.aut.android.smarthome.roomsPage.ProfileFragment"
         android:label="fragment_profile_menu"
         tools:layout="@layout/fragment_profile_menu" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/createNewRoomFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.CreateNewRoomFragment"
+        android:name="hu.bme.aut.android.smarthome.roomsPage.fragment.CreateNewRoomFragment"
         android:label="CreateNewRoomFragment" >
         <action
             android:id="@+id/action_createNewRoomFragment_to_swipeMenuFragment"
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/createNewPresetFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.CreateNewPresetFragment"
+        android:name="hu.bme.aut.android.smarthome.presetsPage.fragment.CreateNewPresetFragment"
         android:label="CreateNewPresetFragment" >
         <action
             android:id="@+id/action_createNewPresetFragment_to_swipeMenuFragment"
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/roomDevicesScreenFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.RoomDevicesScreenFragment"
+        android:name="hu.bme.aut.android.smarthome.devicesPage.fragment.RoomDevicesScreenFragment"
         android:label="fragment_room_devices_screen"
         tools:layout="@layout/fragment_room_devices_screen" >
         <action
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewDeviceFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.AddNewDeviceFragment"
+        android:name="hu.bme.aut.android.smarthome.devicesPage.fragment.AddNewDeviceFragment"
         android:label="AddNewDeviceFragment" >
         <action
             android:id="@+id/action_addNewDeviceFragment_to_roomDevicesScreenFragment"
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/ledLightSettingsFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.LedLightSettingsFragment"
+        android:name="hu.bme.aut.android.smarthome.devicesPage.fragment.LedLightSettingsFragment"
         android:label="LedLightSettingsFragment" >
         <action
             android:id="@+id/action_ledLightSettingsFragment_to_roomDevicesScreenFragment"
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/climateSettingsFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.ClimateSettingsFragment"
+        android:name="hu.bme.aut.android.smarthome.devicesPage.fragment.ClimateSettingsFragment"
         android:label="ClimateSettingsFragment" >
         <action
             android:id="@+id/action_climateSettingsFragment_to_roomDevicesScreenFragment"
@@ -132,7 +132,7 @@
     </fragment>
     <fragment
         android:id="@+id/createHomeFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.CreateHomeFragment"
+        android:name="hu.bme.aut.android.smarthome.settingsPage.fragment.CreateHomeFragment"
         android:label="CreateHomeFragment" >
         <action
             android:id="@+id/action_createHomeFragment_to_swipeMenuFragment"
@@ -140,7 +140,7 @@
     </fragment>
     <fragment
         android:id="@+id/joinHomeFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.JoinHomeFragment"
+        android:name="hu.bme.aut.android.smarthome.settingsPage.fragment.JoinHomeFragment"
         android:label="JoinHomeFragment" >
         <action
             android:id="@+id/action_joinHomeFragment_to_swipeMenuFragment"
@@ -148,7 +148,7 @@
     </fragment>
     <fragment
         android:id="@+id/changeHomeNameFragment"
-        android:name="hu.bme.aut.android.smarthome.homeFragments.ChangeHomeNameFragment"
+        android:name="hu.bme.aut.android.smarthome.settingsPage.fragment.ChangeHomeNameFragment"
         android:label="ChangeHomeNameFragment" >
         <action
             android:id="@+id/action_changeHomeNameFragment_to_swipeMenuFragment"

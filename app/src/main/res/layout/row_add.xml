@@ -26,7 +26,8 @@
         app:layout_constraintEnd_toEndOf="@+id/addButton"
         app:layout_constraintStart_toStartOf="@+id/addButton"
         app:layout_constraintTop_toTopOf="@+id/addButton"
-        app:srcCompat="@drawable/ic_plus_icon" />
+        app:srcCompat="@drawable/ic_plus_icon"
+        tools:ignore="ContentDescription" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

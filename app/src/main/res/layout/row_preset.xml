@@ -9,6 +9,7 @@
         android:id="@+id/presetButton"
         android:layout_width="360dp"
         android:layout_height="100dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_room_button"
         android:fontFamily="@font/dosis_medium"
         android:textColor="#FFFFFF"
