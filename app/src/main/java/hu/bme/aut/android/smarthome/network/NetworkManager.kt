@@ -27,10 +27,13 @@ object NetworkManager {
         return ledControllerApi.turnOffLed(deviceNetworkName, "rgb+toggle+False")
     }
 
-    fun changeLedColor(){
-        return ledControllerApi.changeLedColor()
+    fun changeLedColor(deviceNetworkName: String, color: String){
+        return ledControllerApi.changeLedColor(deviceNetworkName, color)
     }
     fun getAvailableDevices(){
         return ledControllerApi.getAvailableDevices()
+    }
+    fun scanNetwork(){
+        return ledControllerApi.scanNetwork()
     }
 }

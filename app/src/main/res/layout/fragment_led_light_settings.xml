@@ -62,11 +62,12 @@
         app:gcp_selectorColor="#FFFFFF"
         app:gcp_showAlphaView="true"
         app:gcp_showAlphaViewLabel="true"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSaveSettings"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lightSettingsTV"/>
+        app:layout_constraintTop_toBottomOf="@+id/lightSettingsTV" />
 
+    <!--
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSaveSettings"
         android:layout_width="250dp"
@@ -80,5 +81,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>

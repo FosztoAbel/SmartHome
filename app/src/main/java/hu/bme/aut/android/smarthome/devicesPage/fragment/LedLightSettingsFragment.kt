@@ -1,6 +1,7 @@
 package hu.bme.aut.android.smarthome.devicesPage.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -81,14 +82,18 @@ class LedLightSettingsFragment : Fragment() {
             }
         }
 
-
-        binding.buttonSaveSettings.setOnClickListener {
-            val action =
-                LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(
-                    args.roomNameString
-                )
-                findNavController().navigate(action)
+        binding.colorPicker.onColorChanged = { color ->
+            val colorsRGB = getRgbFromHex(color)
+            val colorString = "rgb+" + colorsRGB[0].toString()+ "+" + colorsRGB[1].toString()+ "+" + colorsRGB[2].toString()
+           // NetworkManager.changeLedColor("ESP32", colorString)
         }
+
+
+//        binding.buttonSaveSettings.setOnClickListener {
+//            val action =
+//                LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
+//                findNavController().navigate(action)
+//        }
         binding.lightSettingsTV.setOnLongClickListener {
             dialog.show(childFragmentManager, ChangeNameDialog.TAG)
             dialog.setOnPositiveClickListener {
@@ -143,6 +148,14 @@ class LedLightSettingsFragment : Fragment() {
                 }
                 true
             }
+    }
+
+    fun getRgbFromHex(hex: String): IntArray {
+        val initColor = Color.parseColor(hex)
+        val r = Color.red(initColor)
+        val g = Color.green(initColor)
+        val b = Color.blue(initColor)
+        return intArrayOf(r, g, b)
     }
 }
 
