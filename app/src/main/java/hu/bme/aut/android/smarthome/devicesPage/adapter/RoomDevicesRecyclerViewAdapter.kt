@@ -1,6 +1,7 @@
 package hu.bme.aut.android.smarthome.devicesPage.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import hu.bme.aut.android.smarthome.databinding.RowAddBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceClimateBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceLedBinding
 import hu.bme.aut.android.smarthome.devicesPage.model.Device
+import hu.bme.aut.android.smarthome.network.NetworkManager
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -80,6 +82,14 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
             }
             binding.deviceNameTV.text = roomDevice.name
 
+            binding.switchOnOff.setOnClickListener {
+                if(binding.switchOnOff.isChecked){
+                    NetworkManager.turnOnLed("ESP32")
+                }
+                else{
+                    NetworkManager.turnOffLed("ESP32")
+                }
+            }
         }
     }
 
@@ -95,6 +105,13 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
                 roomDevice.let { roomDevice -> itemClickListener?.onItemLongClick(adapterPosition, roomDevice) }
                 true
             }
+
+            binding.deviceNameTV.text = roomDevice.name
+
+            binding.switchOnOff.setOnClickListener {
+
+            }
+
         }
     }
 
