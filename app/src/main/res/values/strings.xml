@@ -87,5 +87,6 @@
     <string name="delete">Delete</string>
     <string name="delete_item">Delete item</string>
     <string name="home">Home</string>
+    <string name="state_on">Turn On</string>
 
 </resources>
