@@ -127,7 +127,7 @@ class LedLightSettingsFragment : Fragment() {
 
         binding.colorPicker.onColorChanged = { color ->
             val colorsRGB = getRgbFromHex(color)
-            val colorString = "rgb+" + colorsRGB[0].toString() + "+" + colorsRGB[1].toString()+ "+" + colorsRGB[2].toString()
+            val colorString = "rgb+rgb+" + colorsRGB[0].toString() + "+" + colorsRGB[1].toString()+ "+" + colorsRGB[2].toString()
             Log.d("szineske", colorString)
             NetworkManager.changeLedColor("LedGenisys", colorString).enqueue(object : Callback<ResponseBody?> {
                 override fun onResponse(
