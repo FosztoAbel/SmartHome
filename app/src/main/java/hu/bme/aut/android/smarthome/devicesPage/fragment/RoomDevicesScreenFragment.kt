@@ -115,7 +115,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
 
     private fun setupRecyclerView(user: FirebaseUser?) {
 
-        var liveData: MutableList<Device> = mutableListOf()
+        val liveData: MutableList<Device> = mutableListOf()
         roomDevicesRecyclerViewAdapter = RoomDevicesRecyclerViewAdapter()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -176,8 +176,8 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
         }
     }
 
-    override fun onItemLongClick(position: Int, device: Device): Boolean {
-        if(device.viewType == 1) {
+    override fun onItemLongClick(position: Int, roomDevice: Device): Boolean {
+        if(roomDevice.viewType == 1) {
             val user = FirebaseAuth.getInstance().currentUser
             dialogDelete.show(childFragmentManager,DeleteItemDialog.TAG)
             dialogDelete.setOnPositiveClickListener {
@@ -205,13 +205,13 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
                                                 .toObjects<Device>()
                                             CoroutineScope(Dispatchers.Main).launch {
                                                 for(iteratorDevice in devices){
-                                                    if(iteratorDevice.name == device.name){
+                                                    if(iteratorDevice.name == roomDevice.name){
                                                         firestore.collection("homes").document(home.id.toString())
                                                             .collection("rooms").document(iteratorRoom.id.toString()).update("deviceNumber",iteratorRoom.deviceNumber - 1)
 
                                                         firestore.collection("homes").document(home.id.toString())
                                                             .collection("rooms").document(iteratorRoom.id.toString())
-                                                            .collection("devices").document(device.id.toString()).delete()
+                                                            .collection("devices").document(roomDevice.id.toString()).delete()
                                                         roomDevicesRecyclerViewAdapter.deleteRow(position)
                                                     }
                                                 }

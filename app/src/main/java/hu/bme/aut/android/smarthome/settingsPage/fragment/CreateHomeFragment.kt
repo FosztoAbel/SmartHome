@@ -62,7 +62,7 @@ class CreateHomeFragment : Fragment() {
                         val currentDocument = document.toObject<Home>()
                         for(iterator in currentDocument.joinedUsers!!){
                             if(iterator.equals(user?.uid)){
-                                var list = currentDocument.joinedUsers
+                                val list = currentDocument.joinedUsers
                                 list.remove(iterator)
                                 firestore.collection("homes").document(currentDocument.name)
                                     .update("joinedUsers", list)

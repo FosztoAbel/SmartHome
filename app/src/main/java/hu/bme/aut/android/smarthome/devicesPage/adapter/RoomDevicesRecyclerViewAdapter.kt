@@ -1,15 +1,19 @@
 package hu.bme.aut.android.smarthome.devicesPage.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.smarthome.databinding.RowAddBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceClimateBinding
 import hu.bme.aut.android.smarthome.databinding.RowRoomDeviceLedBinding
 import hu.bme.aut.android.smarthome.devicesPage.model.Device
 import hu.bme.aut.android.smarthome.network.NetworkManager
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -84,16 +88,56 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
 
             binding.switchOnOff.setOnClickListener {
                 if(binding.switchOnOff.isChecked){
-                    NetworkManager.turnOnLed("ESP32")
+                    NetworkManager.turnOnLed("LedGenisys").enqueue(object :
+                        Callback<ResponseBody?> {
+                        override fun onResponse(
+                            call: Call<ResponseBody?>,
+                            response: Response<ResponseBody?>
+                        ) {
+                            if (response.isSuccessful) {
+                                Snackbar.make(binding.root, roomDevice.name + " turned on!",
+                                    Snackbar.LENGTH_LONG).show()
+                            } else {
+                                Snackbar.make(binding.root,"Unknown error, please contact us!",
+                                    Snackbar.LENGTH_LONG).show()
+                            }
+                        }
+
+                        override fun onFailure(
+                            call: Call<ResponseBody?>,
+                            throwable: Throwable
+                        ) {
+                            throwable.printStackTrace()
+                            Snackbar.make(binding.root,"Network request error occurred!", Snackbar.LENGTH_LONG).show()
+                        }
+                    })
                 }
                 else{
-                    NetworkManager.turnOffLed("ESP32")
+                    NetworkManager.turnOffLed("LedGenisys").enqueue(object : Callback<ResponseBody?> {
+                        override fun onResponse(
+                            call: Call<ResponseBody?>,
+                            response: Response<ResponseBody?>
+                        ) {
+                            if (response.isSuccessful) {
+                                Snackbar.make(binding.root, roomDevice.name + " turned off!",Snackbar.LENGTH_LONG).show()
+                            } else {
+                                Snackbar.make(binding.root,"Unknown error, please contact us!",Snackbar.LENGTH_LONG).show()
+                            }
+                        }
+
+                        override fun onFailure(
+                            call: Call<ResponseBody?>,
+                            throwable: Throwable
+                        ) {
+                            throwable.printStackTrace()
+                            Snackbar.make(binding.root,"Network request error occurred!",Snackbar.LENGTH_LONG).show()
+                        }
+                    })
                 }
             }
         }
     }
 
-    //for future updates
     inner class ViewHolderRoomDeviceClimate(val binding: RowRoomDeviceClimateBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
@@ -109,9 +153,8 @@ class RoomDevicesRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHol
             binding.deviceNameTV.text = roomDevice.name
 
             binding.switchOnOff.setOnClickListener {
-
+                //TODO:climate
             }
-
         }
     }
 

@@ -102,7 +102,7 @@ class HomeMenuFragment : Fragment(), RoomRecyclerViewAdapter.RoomItemClickListen
     }
 
     private fun setupRecyclerView(user: FirebaseUser?) {
-        var liveData: MutableList<Room> = mutableListOf()
+        val liveData: MutableList<Room> = mutableListOf()
         roomRecyclerViewAdapter = RoomRecyclerViewAdapter()
 
         CoroutineScope(Dispatchers.IO).launch {

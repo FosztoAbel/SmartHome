@@ -1,26 +1,28 @@
 package hu.bme.aut.android.smarthome.network
 
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface LedControllerAPI {
-    @GET("/sendcmd")
+    @GET("/sendcmd/{device}/{state}")
     fun turnOnLed(
-        @Query("device") device: String?,
-        @Query("state") state: String?
-    )
+        @Path("device", encoded = true) device: String?,
+        @Path("state", encoded = true) state: String?
+    ): Call<ResponseBody>
 
-    @GET("/sendcmd")
+    @GET("/sendcmd/{device}/{state}")
     fun turnOffLed(
-        @Query("device") device: String?,
-        @Query("state") state: String?
-    )
+        @Path("device", encoded = true) device: String?,
+        @Path("state", encoded = true) state: String?
+    ): Call<ResponseBody>
 
-    @GET("/sendcmd")
+    @GET("/sendcmd/{device}/{color}")
     fun changeLedColor(
-        @Query("device") device: String?,
-        @Query("color") color: String?
-    )
+        @Path("device", encoded = true) device: String?,
+        @Path("color", encoded = true) color: String?
+    ): Call<ResponseBody>
 
     @GET("/list")
     fun getAvailableDevices()

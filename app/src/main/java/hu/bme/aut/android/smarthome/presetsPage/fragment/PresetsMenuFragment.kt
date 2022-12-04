@@ -34,7 +34,7 @@ class PresetsMenuFragment : Fragment(), PresetRecyclerViewAdapter.PresetItemClic
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentPresetsMenuBinding.inflate(inflater, container, false)
         return binding.root
@@ -63,7 +63,7 @@ class PresetsMenuFragment : Fragment(), PresetRecyclerViewAdapter.PresetItemClic
 
     override fun onItemClick(preset: Preset) {
         if(preset.viewType==1){
-
+            //TODO:presets
         }
         if(preset.viewType==2){
             findNavController().navigate(R.id.action_swipeMenuFragment_to_createNewPresetFragment)

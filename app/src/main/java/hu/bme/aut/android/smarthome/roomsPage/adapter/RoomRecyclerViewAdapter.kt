@@ -2,7 +2,6 @@ package hu.bme.aut.android.smarthome.roomsPage.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.smarthome.databinding.RowAddBinding
@@ -63,7 +62,6 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     inner class ViewHolderHome(val binding: RowRoomBinding) : RecyclerView.ViewHolder(binding.root) {
-        var room: Room? = null
 
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
@@ -72,67 +70,50 @@ class RoomRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             binding.roomNameHomeTV.text = room.name
             binding.deviceNumberHomeTV.text = room.deviceNumber.toString() + " devices"
 
-//            val resource = when (room.type) {
-//               Room.Type.bathroom -> R.drawable.custom_room_image
-//               Room.Type.bedroom -> R.drawable.custom_room_image
-//               Room.Type.livingroom -> R.drawable.custom_room_image
-//               Room.Type.study -> R.drawable.custom_room_image
-//               Room.Type.diningroom -> R.drawable.custom_room_image
-//               Room.Type.garage -> R.drawable.custom_room_image
-//               Room.Type.kitchen -> R.drawable.custom_room_image
-//                else -> {}
-//         }
-//            binding.roomImage.setImageResource(resource as Int)
-
-//            itemView.setOnClickListener {
-//                room?.let { room -> itemClickListener?.onItemClick(room) }
-//            }
-
             binding.roomImage.setOnClickListener {
-                room?.let { room -> itemClickListener?.onItemClick(room) }
+                room.let { room -> itemClickListener?.onItemClick(room) }
             }
             binding.roomHomeButton.setOnClickListener {
-                room?.let { room -> itemClickListener?.onItemClick(room) }
+                room.let { room -> itemClickListener?.onItemClick(room) }
             }
             binding.deviceNumberHomeTV.setOnClickListener {
-                room?.let { room -> itemClickListener?.onItemClick(room) }
+                room.let { room -> itemClickListener?.onItemClick(room) }
             }
             binding.roomNameHomeTV.setOnClickListener {
-                room?.let { room -> itemClickListener?.onItemClick(room) }
+                room.let { room -> itemClickListener?.onItemClick(room) }
             }
 
 
             binding.roomImage.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
+                room.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
             binding.roomHomeButton.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
+                room.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
             binding.roomNameHomeTV.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
+                room.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
             binding.deviceNumberHomeTV.setOnLongClickListener {
-                room?.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
+                room.let { room -> itemClickListener?.onItemLongClick(adapterPosition, room) }
                 true
             }
         }
     }
 
     inner class ViewHolderHomeAdd(val binding: RowAddBinding) : RecyclerView.ViewHolder(binding.root) {
-        var room: Room? = null
 
         fun bind(position: Int){
 
             val room = roomList[position]
 
             binding.addButton.setOnClickListener {
-                room?.let { room -> itemClickListener?.onItemClick(room) }
+                room.let { room -> itemClickListener?.onItemClick(room) }
             }
             binding.addImage.setOnClickListener {
-                room?.let { room -> itemClickListener?.onItemClick(room) }
+                room.let { room -> itemClickListener?.onItemClick(room) }
             }
         }
     }

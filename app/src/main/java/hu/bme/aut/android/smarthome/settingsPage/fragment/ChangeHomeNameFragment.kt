@@ -25,14 +25,10 @@ class ChangeHomeNameFragment : Fragment() {
     private lateinit var binding : FragmentChangeHomeNameBinding
     private val firestore = Firebase.firestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentChangeHomeNameBinding.inflate(inflater,container, false)
         return binding.root
     }
@@ -52,7 +48,7 @@ class ChangeHomeNameFragment : Fragment() {
     }
 
     private fun renameHome(){
-        if(chechFields()) {
+        if(checkFields()) {
             val user = FirebaseAuth.getInstance().currentUser
             val homeNewName = binding.renameHomeNameInput.text.toString()
             val password = binding.renameHomePasswordInput.text.toString()
@@ -73,7 +69,7 @@ class ChangeHomeNameFragment : Fragment() {
                             }
                         }
                     }
-                    showSnackbarAndNavigate(isValid)
+                    showSnackBarAndNavigate(isValid)
                 }
             }
         }
@@ -82,7 +78,7 @@ class ChangeHomeNameFragment : Fragment() {
         }
     }
 
-    private fun showSnackbarAndNavigate(isValid: Boolean) {
+    private fun showSnackBarAndNavigate(isValid: Boolean) {
         CoroutineScope(Dispatchers.Main).launch {
             if (isValid) {
                 Snackbar.make(
@@ -95,21 +91,21 @@ class ChangeHomeNameFragment : Fragment() {
         }
     }
 
-    private fun chechFields(): Boolean{
+    private fun checkFields(): Boolean{
         return !(binding.renameHomeNameInput.text.isEmpty() || binding.renameHomePasswordInput.text.isEmpty())
     }
 
     private fun togglePasswordVisibility() {
         var toggleVisibility = false
         binding.passwordRenameHomeToggleVisibility.setOnClickListener {
-            if (!toggleVisibility) {
+            toggleVisibility = if (!toggleVisibility) {
                 binding.passwordRenameHomeToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.renameHomePasswordInput.setTransformationMethod(null)
-                toggleVisibility = true
+                binding.renameHomePasswordInput.transformationMethod = null
+                true
             } else {
                 binding.passwordRenameHomeToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.renameHomePasswordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
+                binding.renameHomePasswordInput.transformationMethod = PasswordTransformationMethod()
+                false
             }
         }
     }

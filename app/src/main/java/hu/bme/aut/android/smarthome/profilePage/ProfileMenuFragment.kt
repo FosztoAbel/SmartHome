@@ -1,4 +1,4 @@
-package hu.bme.aut.android.smarthome.roomsPage
+package hu.bme.aut.android.smarthome.profilePage
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -22,17 +22,12 @@ import hu.bme.aut.android.smarthome.databinding.FragmentProfileMenuBinding
 @Suppress("NAME_SHADOWING")
 class ProfileFragment : Fragment() {
 
-    private lateinit var binding : FragmentProfileMenuBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var binding :FragmentProfileMenuBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = FragmentProfileMenuBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -61,15 +56,14 @@ class ProfileFragment : Fragment() {
         binding.emailProfileInput.hint = emailOfUser
 
         binding.passwordProfileToggleVisibility.setOnClickListener {
-            if(!toggleVisibility) {
+            toggleVisibility = if(!toggleVisibility) {
                 binding.passwordProfileToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.changePasswordInput.setTransformationMethod(null)
-                toggleVisibility = true
-            }
-            else {
+                binding.changePasswordInput.transformationMethod = null
+                true
+            } else {
                 binding.passwordProfileToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.changePasswordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
+                binding.changePasswordInput.transformationMethod = PasswordTransformationMethod()
+                false
             }
         }
 
@@ -94,7 +88,7 @@ class ProfileFragment : Fragment() {
                     }
 
                 //change email of user
-                user!!.updateEmail(binding.emailProfileInput.text.toString())
+                user.updateEmail(binding.emailProfileInput.text.toString())
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "User email address updated.")
@@ -104,7 +98,7 @@ class ProfileFragment : Fragment() {
                 //change password of user
                 val newPassword = binding.changePasswordInput.text.toString()
 
-                user!!.updatePassword(newPassword)
+                user.updatePassword(newPassword)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "User password updated.")

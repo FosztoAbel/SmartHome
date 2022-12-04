@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="hu.bme.aut.android.smarthome.roomsPage.ProfileFragment"
+        android:name="hu.bme.aut.android.smarthome.profilePage.ProfileFragment"
         android:label="fragment_profile_menu"
         tools:layout="@layout/fragment_profile_menu" >
         <action

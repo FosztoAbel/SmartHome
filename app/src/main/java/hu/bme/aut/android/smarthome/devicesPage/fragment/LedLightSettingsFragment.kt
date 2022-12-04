@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
@@ -25,6 +26,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LedLightSettingsFragment : Fragment() {
 
@@ -73,27 +78,79 @@ class LedLightSettingsFragment : Fragment() {
                 val imageOn = R.drawable.ic_lightbulb_orange
                 binding.buttonTurnOnOffDevice.text = "Turn Off"
                 binding.lightStateImage.setImageResource(imageOn)
-                //NetworkManager.turnOnLed("ESP32")
+                NetworkManager.turnOnLed("LedGenisys").enqueue(object : Callback<ResponseBody?> {
+                    override fun onResponse(
+                        call: Call<ResponseBody?>,
+                        response: Response<ResponseBody?>
+                    ) {
+                        if (response.isSuccessful) {
+                            Snackbar.make(binding.root,args.deviceNameString + " turned on!",Snackbar.LENGTH_LONG).show()
+                        } else {
+                            Snackbar.make(binding.root,"Unknown error, please contact us!",Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<ResponseBody?>,
+                        throwable: Throwable
+                    ) {
+                        throwable.printStackTrace()
+                        Snackbar.make(binding.root,"Network request error occurred!",Snackbar.LENGTH_LONG).show()
+                    }
+                })
             } else {
                 val imageOff = R.drawable.ic_lightbulb_off_orange
                 binding.buttonTurnOnOffDevice.text = "Turn On"
                 binding.lightStateImage.setImageResource(imageOff)
-                //NetworkManager.turnOffLed("ESP32")
+                NetworkManager.turnOffLed("LedGenisys").enqueue(object : Callback<ResponseBody?> {
+                    override fun onResponse(
+                        call: Call<ResponseBody?>,
+                        response: Response<ResponseBody?>
+                    ) {
+                        if (response.isSuccessful) {
+                            Snackbar.make(binding.root,args.deviceNameString + " turned off!",Snackbar.LENGTH_LONG).show()
+                        } else {
+                            Snackbar.make(binding.root,"Unknown error, please contact us!",Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<ResponseBody?>,
+                        throwable: Throwable
+                    ) {
+                        throwable.printStackTrace()
+                        Snackbar.make(binding.root,"Network request error occurred!",Snackbar.LENGTH_LONG).show()
+                    }
+                })
             }
         }
 
         binding.colorPicker.onColorChanged = { color ->
             val colorsRGB = getRgbFromHex(color)
             val colorString = "rgb+" + colorsRGB[0].toString()+ "+" + colorsRGB[1].toString()+ "+" + colorsRGB[2].toString()
-           // NetworkManager.changeLedColor("ESP32", colorString)
+            Log.d("ezJO", colorString)
+            NetworkManager.changeLedColor("LedGenisys", colorString).enqueue(object : Callback<ResponseBody?> {
+                override fun onResponse(
+                    call: Call<ResponseBody?>,
+                    response: Response<ResponseBody?>
+                ) {
+                    if (response.isSuccessful) {
+                        Snackbar.make(binding.root,args.deviceNameString + " color changed!",Snackbar.LENGTH_LONG).show()
+                    } else {
+                        Snackbar.make(binding.root,"Unknown error, please contact us!",Snackbar.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ResponseBody?>,
+                    throwable: Throwable
+                ) {
+                    throwable.printStackTrace()
+                    Snackbar.make(binding.root,"Network request error occurred!",Snackbar.LENGTH_LONG).show()
+                }
+            })
         }
 
-
-//        binding.buttonSaveSettings.setOnClickListener {
-//            val action =
-//                LedLightSettingsFragmentDirections.actionLedLightSettingsFragmentToRoomDevicesScreenFragment(args.roomNameString)
-//                findNavController().navigate(action)
-//        }
         binding.lightSettingsTV.setOnLongClickListener {
             dialog.show(childFragmentManager, ChangeNameDialog.TAG)
             dialog.setOnPositiveClickListener {
@@ -150,7 +207,7 @@ class LedLightSettingsFragment : Fragment() {
             }
     }
 
-    fun getRgbFromHex(hex: String): IntArray {
+    private fun getRgbFromHex(hex: String): IntArray {
         val initColor = Color.parseColor(hex)
         val r = Color.red(initColor)
         val g = Color.green(initColor)

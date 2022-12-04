@@ -16,10 +16,6 @@ class CreateNewAccountFragment : AbstractLoginAndRegister(){
     private lateinit var binding: FragmentCreateNewAccountBinding
     private lateinit var firebaseAuth : FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,14 +41,14 @@ class CreateNewAccountFragment : AbstractLoginAndRegister(){
     private fun togglePasswordVisibility() {
         var toggleVisibility = false
         binding.passwordCreateAccountToggleVisibility.setOnClickListener {
-            if (!toggleVisibility) {
+            toggleVisibility = if (!toggleVisibility) {
                 binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.passwordRegisterInput.setTransformationMethod(null)
-                toggleVisibility = true
+                binding.passwordRegisterInput.transformationMethod = null
+                true
             } else {
                 binding.passwordCreateAccountToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.passwordRegisterInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
+                binding.passwordRegisterInput.transformationMethod = PasswordTransformationMethod()
+                false
             }
         }
     }

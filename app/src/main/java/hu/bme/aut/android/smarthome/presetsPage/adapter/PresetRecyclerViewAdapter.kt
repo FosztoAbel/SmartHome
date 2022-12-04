@@ -62,9 +62,7 @@ class PresetRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     inner class ViewHolderPreset(val binding: RowPresetBinding) : RecyclerView.ViewHolder(binding.root) {
-        var preset: Preset? = null
-
-        @SuppressLint("SetTextI18n")
+         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
             val preset = presetList[position]
 
@@ -72,49 +70,48 @@ class PresetRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             binding.presetTimeTV.text = preset.time.toString()
 
             binding.presetNameHomeTV.setOnClickListener {
-                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemClick(preset) }
             }
             binding.presetTimeTV.setOnClickListener {
-                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemClick(preset) }
             }
             binding.presetButton.setOnClickListener {
-                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemClick(preset) }
             }
             binding.roomImage.setOnClickListener {
-                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemClick(preset) }
             }
 
             binding.roomImage.setOnLongClickListener {
-                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
             binding.presetTimeTV.setOnLongClickListener {
-                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
             binding.presetNameHomeTV.setOnLongClickListener {
-                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
             binding.presetButton.setOnLongClickListener {
-                preset?.let { preset -> itemClickListener?.onItemLongClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemLongClick(preset) }
                 true
             }
         }
     }
 
     inner class ViewHolderPresetAdd(val binding: RowAddBinding) : RecyclerView.ViewHolder(binding.root) {
-        var preset: Preset? = null
 
         fun bind(position: Int){
 
             val preset = presetList[position]
 
             binding.addButton.setOnClickListener {
-                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemClick(preset) }
             }
             binding.addImage.setOnClickListener {
-                preset?.let { preset -> itemClickListener?.onItemClick(preset) }
+                preset.let { preset -> itemClickListener?.onItemClick(preset) }
             }
         }
     }

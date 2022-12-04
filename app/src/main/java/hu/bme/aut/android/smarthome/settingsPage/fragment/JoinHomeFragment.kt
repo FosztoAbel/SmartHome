@@ -24,14 +24,10 @@ class JoinHomeFragment : Fragment() {
     private lateinit var binding: FragmentJoinHomeBinding
     private val firestore = Firebase.firestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentJoinHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,7 +47,7 @@ class JoinHomeFragment : Fragment() {
     }
 
     private fun joinHome(){
-        if(chechFields()) {
+        if(checkFields()) {
             val user = FirebaseAuth.getInstance().currentUser
             val homeName = binding.joinHomeNameInput.text.toString()
             val password = binding.joinHomePasswordInput.text.toString()
@@ -68,21 +64,21 @@ class JoinHomeFragment : Fragment() {
                                 val currentDocumentDelete = documentDelete.toObject<Home>()
                                 for(iterator in currentDocumentDelete.joinedUsers!!){
                                     if(iterator.equals(user?.uid)){
-                                        var list = currentDocumentDelete.joinedUsers
+                                        val list = currentDocumentDelete.joinedUsers
                                         list.remove(iterator)
                                         firestore.collection("homes").document(currentDocumentDelete.id.toString())
                                             .update("joinedUsers", list)
                                     }
                                 }
                             }
-                            var list = currentDocument.joinedUsers
+                            val list = currentDocument.joinedUsers
                             list?.add(user?.uid)
                             firestore.collection("homes").document(currentDocument.id.toString())
                                 .update("joinedUsers", list)
                             isValid = true
                         }
                     }
-                    showSnackbarAndNavigate(isValid)
+                    showSnackBarAndNavigate(isValid)
                 }
         }
         else{
@@ -90,7 +86,7 @@ class JoinHomeFragment : Fragment() {
         }
     }
 
-    private fun showSnackbarAndNavigate(isValid: Boolean) {
+    private fun showSnackBarAndNavigate(isValid: Boolean) {
         CoroutineScope(Dispatchers.Main).launch {
             if (isValid) {Snackbar.make(
                 binding.root, "Successfully joined a new home!", Snackbar.LENGTH_LONG).show()
@@ -102,21 +98,21 @@ class JoinHomeFragment : Fragment() {
         }
     }
 
-    private fun chechFields(): Boolean{
+    private fun checkFields(): Boolean{
         return !(binding.joinHomeNameInput.text.isEmpty() || binding.joinHomePasswordInput.text.isEmpty())
     }
 
     private fun togglePasswordVisibility() {
         var toggleVisibility = false
         binding.passwordJoinHomeToggleVisibility.setOnClickListener {
-            if (!toggleVisibility) {
+            toggleVisibility = if (!toggleVisibility) {
                 binding.passwordJoinHomeToggleVisibility.setImageResource(R.drawable.ic_visibility_off)
-                binding.joinHomePasswordInput.setTransformationMethod(null)
-                toggleVisibility = true
+                binding.joinHomePasswordInput.transformationMethod = null
+                true
             } else {
                 binding.passwordJoinHomeToggleVisibility.setImageResource(R.drawable.ic_visibility)
-                binding.joinHomePasswordInput.setTransformationMethod(PasswordTransformationMethod())
-                toggleVisibility = false
+                binding.joinHomePasswordInput.transformationMethod = PasswordTransformationMethod()
+                false
             }
         }
     }
