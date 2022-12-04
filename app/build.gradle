@@ -39,17 +39,20 @@ android {
 
 
 dependencies {
-    //time picker
+
+    //Time picker
     implementation 'com.github.kshitijskumar:Ticker:1.0.0'
-    //color picker
+
+    //Color picker
     implementation 'com.github.panshen:GridColorPicker:1.0.0'
 
-    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    // import the BoM for the Firebase platform and Firebase
+    implementation platform('com.google.firebase:firebase-bom:31.0.3')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
 
-    //navigation component
+    //Navigation component
     def nav_version =  "2.5.3"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -62,15 +65,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-     implementation 'com.flaviofaria:kenburnsview:1.0.7'
-
-    // import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:31.0.3')
-
-    //import coroutines
+    //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    //retrofit
+    //Retrofit
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
