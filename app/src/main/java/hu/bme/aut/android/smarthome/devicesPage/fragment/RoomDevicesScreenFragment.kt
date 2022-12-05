@@ -115,7 +115,7 @@ class RoomDevicesScreenFragment : Fragment(), RoomDevicesRecyclerViewAdapter.Roo
 
     private fun setupRecyclerView(user: FirebaseUser?) {
 
-        val liveData: MutableList<Device> = mutableListOf()
+        var liveData: MutableList<Device> = mutableListOf()
         roomDevicesRecyclerViewAdapter = RoomDevicesRecyclerViewAdapter()
 
         CoroutineScope(Dispatchers.IO).launch {
